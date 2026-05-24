@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mar-Ten Tenis | Kocaeli</title>
+<!-- Web3Forms ile mail gönderimi -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yesil: #2d6a4f;
+    --yesil-ac: #40916c;
+    --yesil-cok-ac: #d8f3dc;
+    --turuncu: #e76f00;
+    --turuncu-ac: #ff9a3c;
+    --koyu: #0d1b0f;
+    --koyu2: #1a2e1c;
+    --gri: #f4f4f0;
+    --gri2: #e8e8e2;
+    --beyaz: #fafaf7;
+    --yazi: #1a1a1a;
+    --yazi2: #555;
+    --font-bas: 'Bebas Neue', sans-serif;
+    --font-govde: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-govde);
+    background: var(--beyaz);
+    color: var(--yazi);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(13,27,15,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(64,145,108,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: var(--font-bas);
+    font-size: 28px;
+    color: var(--beyaz);
+    letter-spacing: 3px;
+    cursor: pointer;
+  }
+  .nav-logo span { color: var(--turuncu); }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-govde);
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover, .nav-links a.aktif {
+    background: rgba(64,145,108,0.2);
+    color: #fff;
+  }
+
+  .nav-giris {
+    background: var(--turuncu) !important;
+    color: #fff !important;
+    border-radius: 6px !important;
+  }
+  .nav-giris:hover { background: var(--turuncu-ac) !important; }
+
+  /* ===== SAYFALAR ===== */
+  .sayfa { display: none; min-height: 100vh; padding-top: 64px; }
+  .sayfa.aktif { display: block; }
+
+  /* ===== ANA SAYFA ===== */
+  .hero {
+    min-height: calc(100vh - 64px);
+    background: var(--koyu);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(64,145,108,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(231,111,0,0.08) 0%, transparent 60%);
+  }
+
+  /* Kort çizgileri dekoratif */
+  .hero-kort {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px;
+    height: 360px;
+    border: 2px solid rgba(64,145,108,0.25);
+    border-radius: 4px;
+    opacity: 0.6;
+  }
+  .hero-kort::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 2px;
+    background: rgba(64,145,108,0.25);
+  }
+  .hero-kort::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 2px;
+    background: rgba(64,145,108,0.12);
+  }
+
+  .hero-ic {
+    position: relative;
+    z-index: 2;
+    padding: 80px 80px;
+    max-width: 700px;
+  }
+
+  .hero-etiket {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--turuncu);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: 1px solid rgba(231,111,0,0.3);
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-bas);
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: 0.9;
+    color: var(--beyaz);
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+  }
+  .hero h1 span { color: var(--yesil-ac); }
+
+  .hero p {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .hero-butonlar { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-ana {
+    display: inline-block;
+    background: var(--turuncu);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 16px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s;
+    letter-spacing: 0.5px;
+  }
+  .btn-ana:hover { background: var(--turuncu-ac); transform: translateY(-2px); }
+
+  .btn-ikincil {
+    display: inline-block;
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 16px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.25s;
+  }
+  .btn-ikincil:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  /* İstatistik bar */
+  .istat-bar {
+    background: var(--koyu2);
+    border-top: 1px solid rgba(64,145,108,0.15);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .istat-item {
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+    padding: 32px 20px;
+    border-right: 1px solid rgba(64,145,108,0.1);
+  }
+  .istat-item:last-child { border-right: none; }
+  .istat-sayi {
+    font-family: var(--font-bas);
+    font-size: 44px;
+    color: var(--yesil-ac);
+    line-height: 1;
+  }
+  .istat-etiket {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  /* Hakkımızda */
+  .bolum {
+    padding: 100px 80px;
+  }
+  .bolum-dar { max-width: 1100px; margin: 0 auto; }
+
+  .bolum-baslik {
+    font-family: var(--font-bas);
+    font-size: 48px;
+    color: var(--koyu);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .bolum-cizgi {
+    width: 48px;
+    height: 3px;
+    background: var(--turuncu);
+    margin-bottom: 40px;
+  }
+
+  .hakkimizda-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hakkimizda-yazi p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--yazi2);
+    margin-bottom: 20px;
+  }
+
+  .hakkimizda-gorsel {
+    background: var(--yesil);
+    border-radius: 12px;
+    height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hakkimizda-gorsel::before {
+    content: '🎾';
+    font-size: 120px;
+    opacity: 0.15;
+    position: absolute;
+  }
+  .hakkimizda-gorsel-yazi {
+    font-family: var(--font-bas);
+    font-size: 28px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Kortlar */
+  .kortlar-bg { background: var(--gri); }
+  .kort-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .kort-kart {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    border: 1px solid var(--gri2);
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .kort-kart:hover {
+    border-color: var(--yesil-ac);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(45,106,79,0.1);
+  }
+  .kort-ikon {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  .kort-ad {
+    font-family: var(--font-bas);
+    font-size: 24px;
+    color: var(--koyu);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .kort-fiyat {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--yesil);
+    margin-bottom: 8px;
+  }
+  .kort-sure {
+    font-size: 13px;
+    color: var(--yazi2);
+    margin-bottom: 24px;
+  }
+  .btn-kort {
+    display: block;
+    text-align: center;
+    background: var(--koyu);
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .btn-kort:hover { background: var(--yesil); }
+
+  /* Hizmetler */
+  .hizmet-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .hizmet-kart {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .hizmet-kart:hover { border-color: var(--turuncu); }
+  .hizmet-ikon { font-size: 32px; }
+  .hizmet-ad { font-weight: 600; font-size: 15px; }
+  .hizmet-fiyat { font-size: 14px; color: var(--yesil); font-weight: 700; margin-top: 2px; }
+  .hizmet-sure { font-size: 12px; color: var(--yazi2); }
+
+  /* Antrenörler */
+  .antrenor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .antrenor-kart {
+    background: var(--koyu);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.25s;
+  }
+  .antrenor-kart:hover { transform: translateY(-6px); }
+  .antrenor-fotograf {
+    height: 220px;
+    background: var(--yesil);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    position: relative;
+  }
+  .antrenor-bilgi { padding: 24px; }
+  .antrenor-ad {
+    font-family: var(--font-bas);
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .antrenor-unvan {
+    font-size: 13px;
+    color: var(--yesil-ac);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* İletişim */
+  .iletisim-bg { background: var(--koyu); }
+  .iletisim-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  .iletisim-baslik {
+    font-family: var(--font-bas);
+    font-size: 48px;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .iletisim-bilgi-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    color: rgba(255,255,255,0.7);
+  }
+  .iletisim-bilgi-ikon { font-size: 22px; flex-shrink: 0; }
+  .iletisim-bilgi-baslik {
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .iletisim-bilgi-deger { font-size: 15px; line-height: 1.6; }
+
+  .calisma-saatleri {
+    background: rgba(64,145,108,0.1);
+    border: 1px solid rgba(64,145,108,0.2);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .calisma-satir {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+  .calisma-satir:last-child { border-bottom: none; }
+  .calisma-satir span:last-child { color: var(--yesil-ac); font-weight: 500; }
+
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    margin-top: 28px;
+    transition: opacity 0.2s;
+  }
+  .wa-btn:hover { opacity: 0.9; }
+
+  /* Footer */
+  footer {
+    background: #080f09;
+    padding: 28px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(64,145,108,0.1);
+  }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-logo {
+    font-family: var(--font-bas);
+    font-size: 22px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 3px;
+  }
+  .footer-logo span { color: var(--turuncu); }
+
+  /* ===== DEFİ LİGİ SAYFASI ===== */
+  .lig-hero {
+    background: var(--koyu);
+    padding: 60px 80px 40px;
+  }
+  .lig-hero h1 {
+    font-family: var(--font-bas);
+    font-size: 72px;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .lig-hero h1 span { color: var(--turuncu); }
+  .lig-hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+  }
+
+  .lig-ic { padding: 48px 80px; }
+
+  /* Giriş formu */
+  .giris-kutu {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 16px;
+    padding: 48px;
+    max-width: 440px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+  }
+  .giris-kutu h2 {
+    font-family: var(--font-bas);
+    font-size: 32px;
+    color: var(--koyu);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .giris-kutu p { font-size: 14px; color: var(--yazi2); margin-bottom: 32px; }
+
+  .form-grup { margin-bottom: 16px; text-align: left; }
+  .form-grup label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--yazi2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--gri2);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: var(--font-govde);
+    background: var(--gri);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-input:focus { border-color: var(--yesil-ac); background: #fff; }
+
+  .btn-giris {
+    width: 100%;
+    background: var(--yesil);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+    font-family: var(--font-govde);
+  }
+  .btn-giris:hover { background: var(--yesil-ac); }
+
+  .giris-hata {
+    background: #fff0f0;
+    border: 1px solid #ffcccc;
+    color: #cc0000;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* Oyuncu paneli */
+  .oyuncu-panel { display: none; }
+  .panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+  }
+
+  /* Puan tablosu */
+  .puan-tablo {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--gri2);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  }
+  .tablo-baslik {
+    background: var(--koyu);
+    padding: 20px 24px;
+    font-family: var(--font-bas);
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead tr {
+    background: var(--gri);
+    border-bottom: 2px solid var(--gri2);
+  }
+  thead th {
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--yazi2);
+    font-weight: 600;
+  }
+  thead th:first-child { text-align: left; }
+  tbody tr {
+    border-bottom: 1px solid var(--gri2);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: var(--gri); }
+  tbody tr:last-child { border-bottom: none; }
+  td {
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 14px;
+  }
+  td:first-child { text-align: left; }
+  .sira {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--yazi2);
+    width: 32px;
+    display: inline-block;
+  }
+  .sira-1 { color: #d4a017; font-weight: 700; }
+  .sira-2 { color: #9e9e9e; font-weight: 700; }
+  .sira-3 { color: #a0522d; font-weight: 700; }
+  .oyuncu-ad { font-weight: 600; font-size: 14px; }
+  .puan-deger {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--yesil);
+    font-size: 16px;
+  }
+  .galibiyet { color: #2d6a4f; font-weight: 600; }
+  .maglubiyet { color: #c62828; font-weight: 600; }
+  .oynanmamis { color: #bbb; }
+
+  /* Maç sonucu girişi */
+  .mac-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .mac-form-kutu {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  }
+  .mac-form-ic { padding: 28px; }
+  .mac-form-ic h3 {
+    font-family: var(--font-bas);
+    font-size: 22px;
+    color: var(--koyu);
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .skor-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 20px;
+  }
+  .skor-taraf { text-align: center; }
+  .skor-taraf label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--yazi2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .skor-taraf select, .skor-taraf input[type=number] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--gri2);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: var(--font-govde);
+    background: var(--gri);
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+  }
+  .skor-taraf select:focus, .skor-taraf input:focus { border-color: var(--yesil-ac); background: #fff; }
+  .vs-yazi {
+    font-family: var(--font-bas);
+    font-size: 24px;
+    color: var(--yazi2);
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .set-girdileri { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .set-satir {
+    display: grid;
+    grid-template-columns: 80px 1fr auto 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  .set-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yazi2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .set-input {
+    padding: 10px;
+    border: 1px solid var(--gri2);
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    font-family: var(--font-mono);
+    background: var(--gri);
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  .set-input:focus { border-color: var(--yesil-ac); background: #fff; }
+  .set-vs { text-align: center; font-size: 14px; color: var(--yazi2); }
+
+  .btn-mac-ekle {
+    width: 100%;
+    background: var(--yesil);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--font-govde);
+  }
+  .btn-mac-ekle:hover { background: var(--yesil-ac); }
+
+  /* Geçmiş maçlar */
+  .gecmis-mac {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .mac-oyuncular {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--koyu);
+  }
+  .mac-skor {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--yazi2);
+    background: var(--gri);
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+  .mac-tarih { font-size: 12px; color: var(--yazi2); }
+  .mac-basarili { border-left: 4px solid var(--yesil-ac); }
+  .basari-mesaj {
+    background: var(--yesil-cok-ac);
+    border: 1px solid var(--yesil-ac);
+    color: var(--yesil);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* Kullanıcı bilgi bar */
+  .kullanici-bar {
+    background: var(--koyu2);
+    padding: 12px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .kullanici-hosgeldin {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+  .kullanici-hosgeldin span { color: var(--yesil-ac); font-weight: 600; }
+  .btn-cikis {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    background: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-govde);
+  }
+  .btn-cikis:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+
+  /* ===== REZERVASYON SAYFASI ===== */
+  .rez-hero {
+    background: var(--koyu);
+    padding: 60px 80px 40px;
+  }
+  .rez-hero h1 {
+    font-family: var(--font-bas);
+    font-size: 72px;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .rez-hero h1 span { color: var(--turuncu); }
+  .rez-hero p { font-size: 16px; color: rgba(255,255,255,0.5); margin-top: 8px; }
+
+  .rez-ic { padding: 48px 80px; }
+  .rez-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  .kort-secim { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+  .kort-sec-kart {
+    background: #fff;
+    border: 2px solid var(--gri2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .kort-sec-kart:hover { border-color: var(--yesil-ac); }
+  .kort-sec-kart.secili {
+    border-color: var(--yesil);
+    background: #f0faf4;
+  }
+  .kort-sec-ikon { font-size: 28px; }
+  .kort-sec-ad { font-weight: 600; font-size: 15px; }
+  .kort-sec-fiyat { font-size: 14px; color: var(--yesil); font-weight: 700; margin-top: 2px; }
+  .secim-gostergesi {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--gri2);
+    margin-left: auto;
+    transition: all 0.2s;
+  }
+  .kort-sec-kart.secili .secim-gostergesi {
+    background: var(--yesil);
+    border-color: var(--yesil);
+  }
+
+  .takvim-wrap {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  }
+  .takvim-baslik {
+    background: var(--koyu);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .takvim-ay {
+    font-family: var(--font-bas);
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .takvim-nav {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .takvim-nav:hover { background: rgba(255,255,255,0.2); }
+  .takvim-gunler {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 16px 16px 0;
+    gap: 4px;
+  }
+  .takvim-gun-ad {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--yazi2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 0;
+  }
+  .takvim-gun {
+    text-align: center;
+    padding: 10px 4px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--yazi);
+  }
+  .takvim-gun:hover { background: var(--gri); }
+  .takvim-gun.bos { color: transparent; cursor: default; }
+  .takvim-gun.bugun { background: var(--yesil-cok-ac); color: var(--yesil); font-weight: 700; }
+  .takvim-gun.secili { background: var(--yesil) !important; color: #fff !important; font-weight: 700; }
+  .takvim-gun.gecmis { color: #ccc; cursor: default; }
+
+  .saat-secim {
+    padding: 20px 24px;
+    border-top: 1px solid var(--gri2);
+  }
+  .saat-baslik {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yazi2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .saat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .saat-btn {
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    border: 1px solid var(--gri2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #fff;
+    color: var(--yazi);
+  }
+  .saat-btn:hover { border-color: var(--yesil-ac); color: var(--yesil); }
+  .saat-btn.secili { background: var(--yesil); border-color: var(--yesil); color: #fff; }
+  .saat-btn.dolu { background: var(--gri); color: #bbb; cursor: not-allowed; text-decoration: line-through; }
+
+  .rez-ozet {
+    background: var(--koyu);
+    border-radius: 16px;
+    padding: 28px;
+    color: #fff;
+    position: sticky;
+    top: 88px;
+  }
+  .rez-ozet h3 {
+    font-family: var(--font-bas);
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    color: #fff;
+  }
+  .ozet-satir {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+  .ozet-satir:last-of-type { border-bottom: none; }
+  .ozet-satir span:last-child { color: #fff; font-weight: 500; }
+  .ozet-toplam {
+    background: rgba(64,145,108,0.15);
+    border: 1px solid rgba(64,145,108,0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ozet-toplam-label { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .ozet-toplam-fiyat { font-family: var(--font-bas); font-size: 32px; color: var(--yesil-ac); }
+  .btn-rez {
+    width: 100%;
+    background: var(--turuncu);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--font-govde);
+    letter-spacing: 0.5px;
+  }
+  .btn-rez:hover { background: var(--turuncu-ac); }
+  .rez-not {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  /* Modal */
+  .modal-arkaplan {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-arkaplan.acik { display: flex; }
+  .modal-kutu {
+    background: #fff;
+    border-radius: 20px;
+    padding: 48px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    animation: modalGel 0.3s ease;
+  }
+  @keyframes modalGel {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .modal-ikon { font-size: 64px; margin-bottom: 16px; }
+  .modal-kutu h3 {
+    font-family: var(--font-bas);
+    font-size: 28px;
+    color: var(--koyu);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .modal-kutu p { font-size: 15px; color: var(--yazi2); line-height: 1.6; margin-bottom: 28px; }
+  .btn-modal {
+    background: var(--yesil);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-govde);
+  }
+
+  /* ===== ADMİN PANELİ ===== */
+  .admin-hero {
+    background: linear-gradient(135deg, #0d1b0f 0%, #1a0a00 100%);
+    padding: 60px 80px 40px;
+    border-bottom: 2px solid var(--turuncu);
+  }
+  .admin-hero h1 {
+    font-family: var(--font-bas);
+    font-size: 64px;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .admin-hero h1 span { color: var(--turuncu); }
+  .admin-hero p { font-size: 15px; color: rgba(255,255,255,0.4); margin-top:6px; }
+
+  .admin-ic { padding: 40px 80px; }
+
+  .admin-sekmeler {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid var(--gri2);
+    padding-bottom: 0;
+  }
+  .admin-sekme {
+    padding: 12px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yazi2);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    background: none;
+    border-left: none; border-right: none; border-top: none;
+    font-family: var(--font-govde);
+  }
+  .admin-sekme:hover { color: var(--koyu); }
+  .admin-sekme.aktif { color: var(--turuncu); border-bottom-color: var(--turuncu); }
+
+  .admin-panel { display: none; }
+  .admin-panel.aktif { display: block; }
+
+  .admin-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .admin-kart {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  }
+  .admin-kart-baslik {
+    background: var(--koyu);
+    padding: 18px 24px;
+    font-family: var(--font-bas);
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .admin-kart-ic { padding: 24px; }
+
+  .admin-form-satir {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .admin-form-satir .form-input { flex: 1; min-width: 120px; }
+  .btn-admin-ekle {
+    background: var(--yesil);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--font-govde);
+    white-space: nowrap;
+  }
+  .btn-admin-ekle:hover { background: var(--yesil-ac); }
+  .btn-admin-ekle.turuncu { background: var(--turuncu); }
+  .btn-admin-ekle.turuncu:hover { background: var(--turuncu-ac); }
+
+  .liste-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gri2);
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .liste-item:last-child { border-bottom: none; }
+  .liste-item:hover { background: var(--gri); }
+  .liste-item-sol { display: flex; align-items: center; gap: 12px; }
+  .liste-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--yesil-cok-ac);
+    color: var(--yesil);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .liste-ad { font-weight: 600; color: var(--koyu); }
+  .liste-kullanici { font-size: 12px; color: var(--yazi2); font-family: var(--font-mono); }
+  .btn-sil {
+    background: none;
+    border: 1px solid #ffcccc;
+    color: #cc0000;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-govde);
+  }
+  .btn-sil:hover { background: #fff0f0; }
+  .btn-duzenle {
+    background: none;
+    border: 1px solid var(--gri2);
+    color: var(--yazi2);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-govde);
+    margin-right: 6px;
+  }
+  .btn-duzenle:hover { border-color: var(--yesil-ac); color: var(--yesil); }
+
+  .grup-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--yesil-cok-ac);
+    color: var(--yesil);
+    margin-right: 4px;
+  }
+  .grup-badge.turuncu { background: #fff3e0; color: var(--turuncu); }
+  .grup-badge.mor { background: #ede7f6; color: #5e35b1; }
+  .grup-badge.mavi { background: #e3f2fd; color: #1565c0; }
+
+  .bos-mesaj {
+    text-align: center;
+    padding: 32px;
+    color: var(--yazi2);
+    font-size: 14px;
+  }
+
+  .grup-kart {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .grup-kart-baslik {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid var(--gri2);
+  }
+  .grup-kart-baslik:hover { background: var(--gri); }
+  .grup-ad {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--koyu);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .grup-uye-sayi {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--gri);
+    color: var(--yazi2);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .grup-uyeler { padding: 8px 0; }
+
+  .oyuncu-ata-satir {
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--gri2);
+    background: var(--gri);
+  }
+  .oyuncu-ata-satir select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--gri2);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: var(--font-govde);
+    background: #fff;
+    outline: none;
+  }
+
+  .istat-admin {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .istat-admin-kart {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .istat-admin-sayi {
+    font-family: var(--font-bas);
+    font-size: 40px;
+    line-height: 1;
+    color: var(--koyu);
+  }
+  .istat-admin-etiket {
+    font-size: 12px;
+    color: var(--yazi2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .mac-onay-item {
+    background: #fff;
+    border: 1px solid var(--gri2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-left: 4px solid var(--turuncu);
+  }
+  .mac-onay-butonlar { display: flex; gap: 8px; }
+  .btn-onayla {
+    background: var(--yesil);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-govde);
+  }
+  .btn-reddet {
+    background: #fff0f0;
+    color: #cc0000;
+    border: 1px solid #ffcccc;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-govde);
+  }
+
+  @media (max-width: 768px) {
+    .admin-hero { padding: 40px 24px 24px; }
+    .admin-ic { padding: 24px; }
+    .admin-grid2 { grid-template-columns: 1fr; }
+    .istat-admin { grid-template-columns: repeat(2,1fr); }
+    .admin-sekmeler { overflow-x: auto; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    #navMobilGiris { display: flex !important; }
+    .hero-ic { padding: 40px 24px; }
+    .bolum { padding: 60px 24px; }
+    .hakkimizda-grid, .iletisim-grid, .rez-grid, .panel-grid { grid-template-columns: 1fr; }
+    .kort-grid, .antrenor-grid { grid-template-columns: 1fr; }
+    .lig-hero, .rez-hero { padding: 40px 24px 24px; }
+    .lig-ic, .rez-ic { padding: 32px 24px; }
+    .kullanici-bar { padding: 12px 24px; }
+    footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .istat-bar { flex-wrap: wrap; }
+    .hizmet-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo" onclick="sayfaGit('ana')">MAR<span>-</span>TEN</div>
+  <button id="navMobilGiris" onclick="sayfaGit('giris')" style="display:none; background:var(--turuncu); color:#fff; border:none; padding:8px 16px; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer; font-family:var(--font-govde);">Giriş Yap</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="sayfaGit('ana')" id="nav-ana">Ana Sayfa</a></li>
+    <li><a href="#" onclick="sayfaGit('lig')" id="nav-lig">Defi Ligi</a></li>
+    <li><a href="#" onclick="sayfaGit('giris')" id="nav-giris" style="display:none;">Giriş</a></li>
+    <li><a href="#" onclick="sayfaGit('rezervasyon')" id="nav-rezervasyon">Rezervasyon</a></li>
+    <li><a href="#" onclick="sayfaGit('iletisim')" id="nav-iletisim">İletişim</a></li>
+    <li><a href="#" id="nav-giris-btn" class="nav-giris" onclick="sayfaGit('giris')">Giriş Yap</a></li>
+    <li><a href="#" id="nav-kullanici" style="display:none; color:rgba(255,255,255,0.8); font-size:13px; padding:8px 16px; font-weight:500;" onclick="sayfaGit('giris')">👤 <span id="nav-kullanici-ad"></span></a></li>
+    <li><a href="#" id="nav-cikis" style="display:none;" onclick="globalCikis()">Çıkış</a></li>
+    <li><a href="#" id="nav-admin" style="display:none;" onclick="sayfaGit('admin')">⚙️ Admin</a></li>
+  </ul>
+</nav>
+
+<!-- ===================== ANA SAYFA ===================== -->
+<div id="sayfa-ana" class="sayfa aktif">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-kort"></div>
+    <div class="hero-ic fade-up">
+      <div class="hero-etiket">Kocaeli — İzmit Tenis Kulübü</div>
+      <h1>MAR<span>-TEN</span><br>TENİS</h1>
+      <p>Özel dersler, grup antrenmanları, defi ligi turnuvaları ve kort kiralama hizmetiyle tenis tutkunuzu yaşatıyoruz.</p>
+      <div class="hero-butonlar">
+        <button class="btn-ana" onclick="sayfaGit('rezervasyon')">Kort Kirala</button>
+        <button class="btn-ikincil" onclick="sayfaGit('lig')">Defi Ligi →</button>
+        <button class="btn-ikincil" id="heroGirisBtn" onclick="sayfaGit('giris')" style="border-color:var(--turuncu); color:var(--turuncu-ac);">🔑 Üye Girişi</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- İstatistik -->
+  <div class="istat-bar">
+    <div class="istat-item">
+      <div class="istat-sayi">3</div>
+      <div class="istat-etiket">Tenis Kortu</div>
+    </div>
+    <div class="istat-item">
+      <div class="istat-sayi">50+</div>
+      <div class="istat-etiket">Aktif Üye</div>
+    </div>
+    <div class="istat-item">
+      <div class="istat-sayi">5+</div>
+      <div class="istat-etiket">Yıl Deneyim</div>
+    </div>
+    <div class="istat-item">
+      <div class="istat-sayi">3</div>
+      <div class="istat-etiket">Uzman Antrenör</div>
+    </div>
+  </div>
+
+  <!-- Hakkımızda -->
+  <section class="bolum">
+    <div class="bolum-dar">
+      <div class="hakkimizda-grid">
+        <div class="hakkimizda-yazi">
+          <div class="bolum-baslik">HAKKIMIZDA</div>
+          <div class="bolum-cizgi"></div>
+          <p>Deneyimli tenis antrenörlerimiz, her seviyeden oyuncu için özel dersler sunmaktadır. İster yeni başlayan, ister yıllardır tenis oynuyor olun, uzman kadromuz size özel antrenman programlarıyla teknik becerilerinizi geliştirmenize yardımcı olacaktır.</p>
+          <p>Mar-Ten Tenis olarak, modern kortlarımız ve profesyonel ekibimizle Kocaeli'nin en kapsamlı tenis deneyimini sunuyoruz.</p>
+          <button class="btn-ana" style="margin-top:16px;" onclick="sayfaGit('iletisim')">Bize Ulaşın</button>
+        </div>
+        <div class="hakkimizda-gorsel">
+          <div class="hakkimizda-gorsel-yazi">MAR-TEN TENİS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kortlar -->
+  <section class="bolum kortlar-bg">
+    <div class="bolum-dar">
+      <div class="bolum-baslik">KİRALIK KORTLAR</div>
+      <div class="bolum-cizgi"></div>
+      <div class="kort-grid">
+        <div class="kort-kart">
+          <div class="kort-ikon">🌤️</div>
+          <div class="kort-ad">Açık Kort 1</div>
+          <div class="kort-fiyat">₺900</div>
+          <div class="kort-sure">1 saat · Açık hava</div>
+          <button class="btn-kort" onclick="sayfaGit('rezervasyon')">Hemen Rezervasyon</button>
+        </div>
+        <div class="kort-kart">
+          <div class="kort-ikon">☀️</div>
+          <div class="kort-ad">Açık Kort 2</div>
+          <div class="kort-fiyat">₺900</div>
+          <div class="kort-sure">1 saat · Açık hava</div>
+          <button class="btn-kort" onclick="sayfaGit('rezervasyon')">Hemen Rezervasyon</button>
+        </div>
+        <div class="kort-kart">
+          <div class="kort-ikon">🏟️</div>
+          <div class="kort-ad">Kapalı Kort</div>
+          <div class="kort-fiyat">₺900</div>
+          <div class="kort-sure">1 saat · Kapalı salon</div>
+          <button class="btn-kort" onclick="sayfaGit('rezervasyon')">Hemen Rezervasyon</button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="bolum-baslik" style="font-size:28px; margin-top:40px;">DİĞER HİZMETLER</div>
+        <div class="hizmet-grid">
+          <div class="hizmet-kart" onclick="sayfaGit('rezervasyon')">
+            <div class="hizmet-ikon">🎾</div>
+            <div>
+              <div class="hizmet-ad">Kordaj Çekimi</div>
+              <div class="hizmet-fiyat">₺400</div>
+              <div class="hizmet-sure">30 dakika</div>
+            </div>
+          </div>
+          <div class="hizmet-kart" onclick="sayfaGit('rezervasyon')">
+            <div class="hizmet-ikon">📹</div>
+            <div>
+              <div class="hizmet-ad">Saha Video Çekimi</div>
+              <div class="hizmet-fiyat">₺200</div>
+              <div class="hizmet-sure">1 saat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Antrenörler -->
+  <section class="bolum" style="background: var(--koyu);">
+    <div class="bolum-dar">
+      <div class="bolum-baslik" style="color:#fff;">ANTRENÖRLERİMİZ</div>
+      <div class="bolum-cizgi"></div>
+      <div class="antrenor-grid">
+        <div class="antrenor-kart">
+          <div class="antrenor-fotograf">👨‍🏫</div>
+          <div class="antrenor-bilgi">
+            <div class="antrenor-ad">Antrenör 1</div>
+            <div class="antrenor-unvan">Baş Antrenör</div>
+          </div>
+        </div>
+        <div class="antrenor-kart">
+          <div class="antrenor-fotograf" style="background: var(--yesil-ac);">👩‍🏫</div>
+          <div class="antrenor-bilgi">
+            <div class="antrenor-ad">Antrenör 2</div>
+            <div class="antrenor-unvan">Özel Ders Antrenörü</div>
+          </div>
+        </div>
+        <div class="antrenor-kart">
+          <div class="antrenor-fotograf" style="background: #5c4033;">👨‍🏫</div>
+          <div class="antrenor-bilgi">
+            <div class="antrenor-ad">Antrenör 3</div>
+            <div class="antrenor-unvan">Grup Ders Antrenörü</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer İletişim -->
+  <section class="bolum iletisim-bg" id="iletisim-bolum">
+    <div class="bolum-dar">
+      <div class="iletisim-grid">
+        <div>
+          <div class="iletisim-baslik">BİZİMLE<br>İLETİŞİME GEÇ</div>
+          <div class="bolum-cizgi"></div>
+          <div class="iletisim-bilgi-item">
+            <div class="iletisim-bilgi-ikon">📍</div>
+            <div>
+              <div class="iletisim-bilgi-baslik">Adres</div>
+              <div class="iletisim-bilgi-deger">Marten Tenis Kulübü,<br>Cumhuriyet Mah., 41100 İzmit/Kocaeli</div>
+            </div>
+          </div>
+          <div class="iletisim-bilgi-item">
+            <div class="iletisim-bilgi-ikon">📞</div>
+            <div>
+              <div class="iletisim-bilgi-baslik">Telefon</div>
+              <div class="iletisim-bilgi-deger">0506 957 96 63</div>
+            </div>
+          </div>
+          <div class="iletisim-bilgi-item">
+            <div class="iletisim-bilgi-ikon">✉️</div>
+            <div>
+              <div class="iletisim-bilgi-baslik">E-posta</div>
+              <div class="iletisim-bilgi-deger">efemre_88@hotmail.com</div>
+            </div>
+          </div>
+          <a href="https://api.whatsapp.com/send/?phone=905069579663&text=Merhaba!" target="_blank" class="wa-btn">
+            💬 WhatsApp ile Yaz
+          </a>
+        </div>
+        <div>
+          <div class="calisma-saatleri">
+            <div class="iletisim-bilgi-baslik" style="color:#fff; margin-bottom:16px;">ÇALIŞMA SAATLERİ</div>
+            <div class="calisma-satir"><span>Pazartesi — Cuma</span><span>09:00 – 24:00</span></div>
+            <div class="calisma-satir"><span>Cumartesi</span><span>09:00 – 23:00</span></div>
+            <div class="calisma-satir"><span>Pazar</span><span>11:00 – 23:00</span></div>
+          </div>
+          <div style="margin-top:24px; background:rgba(64,145,108,0.1); border:1px solid rgba(64,145,108,0.2); border-radius:12px; padding:24px;">
+            <div class="iletisim-bilgi-baslik" style="color:#fff; margin-bottom:12px;">SOSYAL MEDYA</div>
+            <a href="https://www.instagram.com/martenteniskulubu/" target="_blank" style="display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.7); text-decoration:none; font-size:14px; padding:8px 0; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">
+              📸 @martenteniskulubu — Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">MAR<span>-</span>TEN</div>
+    <p>© 2025 Mar-Ten Tenis Kulübü · Tüm hakları saklıdır</p>
+    <p style="font-size:11px; color:rgba(255,255,255,0.2);">Powered by YGZ Ajans</p>
+  </footer>
+</div>
+
+<!-- ===================== GİRİŞ SAYFASI ===================== -->
+<div id="sayfa-giris" class="sayfa">
+  <div class="lig-hero">
+    <h1>ÜYE <span>GİRİŞİ</span></h1>
+    <p>Defi ligi ve rezervasyon için giriş yap</p>
+  </div>
+  <div class="lig-ic">
+    <div class="giris-kutu">
+      <h2>GİRİŞ YAP</h2>
+      <p>Kullanıcı adı ve şifrenle giriş yap</p>
+      <div class="form-grup">
+        <label>Kullanıcı Adı</label>
+        <input type="text" class="form-input" id="globalKullanici" placeholder="kullaniciadi">
+      </div>
+      <div class="form-grup">
+        <label>Şifre</label>
+        <input type="password" class="form-input" id="globalSifre" placeholder="••••••••">
+      </div>
+      <button class="btn-giris" onclick="globalGiris()">Giriş Yap</button>
+      <div class="giris-hata" id="globalHata">Kullanıcı adı veya şifre hatalı.</div>
+
+      <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--gri2); font-size:12px; color:var(--yazi2);">
+        <strong>Demo Hesaplar:</strong><br>
+        ersin / ersin123 &nbsp;|&nbsp; deniz / deniz123 &nbsp;|&nbsp; yasin / yasin123<br>
+        davut / davut123 &nbsp;|&nbsp; baris / baris123 &nbsp;|&nbsp; aytac / aytac123<br>
+        <span style="color:var(--turuncu); font-weight:600;">admin / admin2025</span> (Yönetici)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DEFİ LİGİ ===================== -->
+<div id="sayfa-lig" class="sayfa">
+  <div class="lig-hero">
+    <h1>DEFİ <span>LİGİ</span></h1>
+    <p>Mevcut sıralamana göre üst sıradaki rakibine meydan oku</p>
+  </div>
+
+  <!-- Giriş yapılmamışsa uyarı -->
+  <div id="ligGirisPanel" class="lig-ic" style="display:none;">
+    <div class="giris-kutu">
+      <div style="font-size:48px; margin-bottom:16px;">🔒</div>
+      <h2>GİRİŞ GEREKLİ</h2>
+      <p>Defi ligine erişmek için üye girişi yapman gerekiyor.</p>
+      <button class="btn-giris" onclick="sayfaGit('giris')">Giriş Yap →</button>
+    </div>
+  </div>
+
+  <!-- OYUNCU PANELİ -->
+  <div id="ligOyuncuPanel" class="oyuncu-panel">
+    <div class="kullanici-bar">
+      <div class="kullanici-hosgeldin">Hoşgeldin, <span id="aktifOyuncuAd"></span></div>
+      <button class="btn-cikis" onclick="globalCikis()">Çıkış Yap</button>
+    </div>
+    <div class="lig-ic">
+      <div class="panel-grid">
+        <!-- SOL: Puan tablosu -->
+        <div>
+          <div class="puan-tablo">
+            <div class="tablo-baslik">🏆 PUAN TABLOSU</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th style="text-align:left;">Oyuncu</th>
+                  <th title="Oynanan">O</th>
+                  <th title="Galibiyet">G</th>
+                  <th title="Mağlubiyet">M</th>
+                  <th title="Set Averajı">AV</th>
+                  <th title="Puan">P</th>
+                </tr>
+              </thead>
+              <tbody id="puanTablosu"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SAĞ: Maç girişi + geçmiş -->
+        <div class="mac-panel">
+          <div class="mac-form-kutu">
+            <div class="tablo-baslik">🎾 MAÇ SONUCU GİR</div>
+            <div class="mac-form-ic">
+              <div class="skor-grid">
+                <div class="skor-taraf">
+                  <label>Sen (Kazanan)</label>
+                  <input type="text" class="form-input" id="kazananAd" readonly style="background:#f0faf4; font-weight:600;">
+                </div>
+                <div class="vs-yazi">vs</div>
+                <div class="skor-taraf">
+                  <label>Rakip</label>
+                  <select class="form-input" id="rakipSec">
+                    <option value="">-- Rakip Seç --</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="set-girdileri" id="setGirdileri">
+                <div class="set-satir">
+                  <span class="set-label">1. Set</span>
+                  <input type="number" class="set-input" id="s1k" min="0" max="7" placeholder="6">
+                  <span class="set-vs">–</span>
+                  <input type="number" class="set-input" id="s1r" min="0" max="7" placeholder="4">
+                </div>
+                <div class="set-satir">
+                  <span class="set-label">2. Set</span>
+                  <input type="number" class="set-input" id="s2k" min="0" max="7" placeholder="6">
+                  <span class="set-vs">–</span>
+                  <input type="number" class="set-input" id="s2r" min="0" max="7" placeholder="3">
+                </div>
+                <div class="set-satir" id="set3satir" style="opacity:0.5;">
+                  <span class="set-label">3. Set</span>
+                  <input type="number" class="set-input" id="s3k" min="0" max="7" placeholder="—">
+                  <span class="set-vs">–</span>
+                  <input type="number" class="set-input" id="s3r" min="0" max="7" placeholder="—">
+                </div>
+              </div>
+
+              <button class="btn-mac-ekle" onclick="macEkle()">Sonucu Kaydet ✓</button>
+              <div class="basari-mesaj" id="basariMesaj">✅ Maç sonucu başarıyla kaydedildi!</div>
+            </div>
+          </div>
+
+          <!-- Geçmiş maçlar -->
+          <div class="mac-form-kutu">
+            <div class="tablo-baslik">📋 GRUP MAÇLARI</div>
+            <div style="padding:16px;" id="gecmisMaclar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== REZERVASYON ===================== -->
+<div id="sayfa-rezervasyon" class="sayfa">
+  <div class="rez-hero">
+    <h1>REZERV<span>ASYON</span></h1>
+    <p>Kort kirala, defi maçı planla</p>
+  </div>
+  <div class="rez-ic">
+
+    <!-- ADIM 1: Artık kullanılmıyor, JS ile atlanıyor -->
+    <div id="rezAdim1" style="display:none;"></div>
+
+    <!-- ADIM 2: Kiralama türü (sadece üye için) -->
+    <div id="rezAdim2" style="display:none;">
+      <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">Kiralama Türü</div>
+      <div class="bolum-cizgi"></div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <div class="kort-sec-kart" style="flex:1; min-width:220px;" onclick="rezTurSec('kiralama', this)">
+          <div class="kort-sec-ikon">⏱️</div>
+          <div>
+            <div class="kort-sec-ad">Saatlik Kiralama</div>
+            <div class="kort-sec-fiyat" style="color:var(--yazi2); font-size:13px; font-weight:400;">1 saat · Tüm kortlar</div>
+          </div>
+          <div class="secim-gostergesi"></div>
+        </div>
+        <div class="kort-sec-kart" style="flex:1; min-width:220px;" onclick="rezTurSec('defi', this)">
+          <div class="kort-sec-ikon">🏆</div>
+          <div>
+            <div class="kort-sec-ad">Defi Maçı</div>
+            <div class="kort-sec-fiyat" style="color:var(--yazi2); font-size:13px; font-weight:400;">1.5 saat · Sadece açık kortlar</div>
+          </div>
+          <div class="secim-gostergesi"></div>
+        </div>
+      </div>
+
+      <!-- Defi: rakip seçimi -->
+      <div id="defiRakipPanel" style="display:none; margin-top:20px; max-width:400px;">
+        <div class="form-grup" style="margin-bottom:0;">
+          <label>Rakibini Seç (Grup Oyuncuları)</label>
+          <select class="form-input" id="defiRakip">
+            <option value="">-- Rakip Seç --</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-admin-ekle turuncu" style="margin-top:20px;" onclick="rezAdim3Gec()">Kort & Tarih Seç →</button>
+    </div>
+
+    <!-- ADIM 3: Kort + Takvim + Saat -->
+    <div id="rezAdim3" style="display:none;">
+      <div class="rez-grid">
+        <div>
+          <!-- Kort seçimi -->
+          <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">Kort Seç</div>
+          <div class="bolum-cizgi"></div>
+          <div class="kort-secim" id="rezKortListesi"></div>
+
+          <!-- Takvim -->
+          <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px; margin-top:32px;">Tarih & Saat Seç</div>
+          <div class="bolum-cizgi"></div>
+          <div class="takvim-wrap">
+            <div class="takvim-baslik">
+              <button class="takvim-nav" onclick="takvimGeri()">‹</button>
+              <div class="takvim-ay" id="takvimAyYazi"></div>
+              <button class="takvim-nav" onclick="takvimIleri()">›</button>
+            </div>
+            <div class="takvim-gunler" id="takvimGunler"></div>
+            <div class="saat-secim">
+              <div class="saat-baslik" id="saatBaslik">Saat Seç</div>
+              <div class="saat-grid" id="saatGrid"></div>
+            </div>
+          </div>
+
+          <!-- Günlük rezervasyon listesi -->
+          <div id="gunlukRezPanel" style="display:none; margin-top:32px;">
+            <div class="bolum-baslik" style="font-size:20px; margin-bottom:8px;">📋 Günün Rezervasyonları</div>
+            <div class="bolum-cizgi"></div>
+            <div id="gunlukRezListe"></div>
+          </div>
+        </div>
+
+        <!-- Özet -->
+        <div>
+          <div class="rez-ozet">
+            <h3>REZERVASYON ÖZETİ</h3>
+            <div class="ozet-satir"><span>Kişi</span><span id="ozetKisi">—</span></div>
+            <div class="ozet-satir"><span>Tür</span><span id="ozetTur">—</span></div>
+            <div class="ozet-satir" id="ozetRakipSatir" style="display:none;"><span>Rakip</span><span id="ozetRakip">—</span></div>
+            <div class="ozet-satir"><span>Kort</span><span id="ozetKort">Seçilmedi</span></div>
+            <div class="ozet-satir"><span>Tarih</span><span id="ozetTarih">Seçilmedi</span></div>
+            <div class="ozet-satir"><span>Saat</span><span id="ozetSaat">Seçilmedi</span></div>
+            <div class="ozet-satir"><span>Süre</span><span id="ozetSure">—</span></div>
+            <div class="ozet-toplam">
+              <span class="ozet-toplam-label">Toplam</span>
+              <span class="ozet-toplam-fiyat" id="ozetFiyat">₺—</span>
+            </div>
+            <button class="btn-rez" onclick="rezervasyonYap()">Rezervasyonu Onayla</button>
+            <p class="rez-not">Rezervasyon onaylandıktan sonra WhatsApp üzerinden bildirim alacaksınız.</p>
+          </div>
+          <button onclick="rezBasa()" style="margin-top:12px; width:100%; background:none; border:1px solid var(--gri2); color:var(--yazi2); padding:10px; border-radius:8px; cursor:pointer; font-family:var(--font-govde); font-size:13px;">← Başa Dön</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== İLETİŞİM ===================== -->
+<div id="sayfa-iletisim" class="sayfa">
+  <div class="rez-hero">
+    <h1>İLETİ<span>ŞİM</span></h1>
+    <p>Sorularınız için bize ulaşın</p>
+  </div>
+  <section class="bolum iletisim-bg" style="background:var(--koyu);">
+    <div class="bolum-dar">
+      <div class="iletisim-grid">
+        <div>
+          <div class="iletisim-baslik">BİZİMLE<br>İLETİŞİME GEÇ</div>
+          <div class="bolum-cizgi"></div>
+          <div class="iletisim-bilgi-item">
+            <div class="iletisim-bilgi-ikon">📍</div>
+            <div>
+              <div class="iletisim-bilgi-baslik">Adres</div>
+              <div class="iletisim-bilgi-deger">Marten Tenis Kulübü,<br>Cumhuriyet Mah., 41100 İzmit/Kocaeli</div>
+            </div>
+          </div>
+          <div class="iletisim-bilgi-item">
+            <div class="iletisim-bilgi-ikon">📞</div>
+            <div>
+              <div class="iletisim-bilgi-baslik">Telefon</div>
+              <div class="iletisim-bilgi-deger">0506 957 96 63</div>
+            </div>
+          </div>
+          <div class="iletisim-bilgi-item">
+            <div class="iletisim-bilgi-ikon">✉️</div>
+            <div>
+              <div class="iletisim-bilgi-baslik">E-posta</div>
+              <div class="iletisim-bilgi-deger">efemre_88@hotmail.com</div>
+            </div>
+          </div>
+          <a href="https://api.whatsapp.com/send/?phone=905069579663&text=Merhaba!" target="_blank" class="wa-btn">
+            💬 WhatsApp ile Yaz
+          </a>
+        </div>
+        <div>
+          <div class="calisma-saatleri">
+            <div class="iletisim-bilgi-baslik" style="color:#fff; margin-bottom:16px;">ÇALIŞMA SAATLERİ</div>
+            <div class="calisma-satir"><span>Pazartesi — Cuma</span><span>09:00 – 24:00</span></div>
+            <div class="calisma-satir"><span>Cumartesi</span><span>09:00 – 23:00</span></div>
+            <div class="calisma-satir"><span>Pazar</span><span>11:00 – 23:00</span></div>
+          </div>
+          <div style="margin-top:24px; background:rgba(64,145,108,0.1); border:1px solid rgba(64,145,108,0.2); border-radius:12px; padding:24px;">
+            <div class="iletisim-bilgi-baslik" style="color:#fff; margin-bottom:12px;">SOSYAL MEDYA</div>
+            <a href="https://www.instagram.com/martenteniskulubu/" target="_blank" style="display:flex; align-items:center; gap:12px; color:rgba(255,255,255,0.7); text-decoration:none; font-size:14px; padding:8px 0;">
+              📸 @martenteniskulubu — Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-logo">MAR<span>-</span>TEN</div>
+    <p>© 2025 Mar-Ten Tenis Kulübü · Tüm hakları saklıdır</p>
+    <p style="font-size:11px; color:rgba(255,255,255,0.2);">Powered by YGZ Ajans</p>
+  </footer>
+</div>
+
+<!-- ===================== ADMİN PANELİ ===================== -->
+<div id="sayfa-admin" class="sayfa">
+  <div class="admin-hero">
+    <h1>ADMİN <span>PANELİ</span></h1>
+    <p>⚙️ Yönetici Paneli — Sadece admin görebilir</p>
+  </div>
+  <div style="background:var(--koyu2); padding:12px 80px; display:flex; justify-content:space-between; align-items:center;">
+    <span style="font-size:14px; color:rgba(255,255,255,0.6);">Hoşgeldin, <span style="color:var(--turuncu); font-weight:600;">Admin</span></span>
+    <button class="btn-cikis" onclick="adminCikis()">Çıkış Yap</button>
+  </div>
+
+  <div class="admin-ic">
+    <!-- İstatistik kartları -->
+    <div class="istat-admin" id="adminIstatlar"></div>
+
+    <!-- Sekmeler -->
+    <div class="admin-sekmeler">
+      <button class="admin-sekme aktif" onclick="adminSekme('oyuncular')">👤 Oyuncular</button>
+      <button class="admin-sekme" onclick="adminSekme('gruplar')">🏆 Gruplar</button>
+      <button class="admin-sekme" onclick="adminSekme('maclar')">🎾 Maçlar</button>
+    </div>
+
+    <!-- OYUNCULAR -->
+    <div class="admin-panel aktif" id="admin-oyuncular">
+      <div class="admin-grid2">
+        <div class="admin-kart">
+          <div class="admin-kart-baslik">➕ Yeni Oyuncu Ekle</div>
+          <div class="admin-kart-ic">
+            <div class="admin-form-satir">
+              <input type="text" class="form-input" id="yeniOyuncuAd" placeholder="Ad Soyad">
+            </div>
+            <div class="admin-form-satir">
+              <input type="text" class="form-input" id="yeniOyuncuKullanici" placeholder="kullaniciadi">
+              <input type="password" class="form-input" id="yeniOyuncuSifre" placeholder="Şifre">
+            </div>
+            <div class="admin-form-satir">
+              <select class="form-input" id="yeniOyuncuGrup">
+                <option value="">-- Grup Seç (opsiyonel) --</option>
+              </select>
+            </div>
+            <button class="btn-admin-ekle" style="width:100%" onclick="oyuncuEkle()">Oyuncu Ekle</button>
+            <div id="oyuncuEkleHata" style="color:#cc0000; font-size:13px; margin-top:8px; display:none;"></div>
+          </div>
+        </div>
+
+        <div class="admin-kart">
+          <div class="admin-kart-baslik">👥 Oyuncu Listesi</div>
+          <div id="adminOyuncuListe"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUPLAR -->
+    <div class="admin-panel" id="admin-gruplar">
+      <div class="admin-grid2">
+        <div class="admin-kart">
+          <div class="admin-kart-baslik">➕ Yeni Grup Oluştur</div>
+          <div class="admin-kart-ic">
+            <div class="admin-form-satir">
+              <input type="text" class="form-input" id="yeniGrupAd" placeholder="Grup Adı (örn: A Grubu)">
+              <button class="btn-admin-ekle turuncu" onclick="grupEkle()">Oluştur</button>
+            </div>
+            <div style="margin-top:8px; font-size:13px; color:var(--yazi2);">Grup oluşturduktan sonra sağdaki panelden oyuncu ekleyebilirsin.</div>
+          </div>
+        </div>
+
+        <div class="admin-kart" style="grid-row: span 2;">
+          <div class="admin-kart-baslik">🏆 Gruplar & Oyuncular</div>
+          <div style="padding:16px;" id="adminGrupListe"></div>
+        </div>
+
+        <div class="admin-kart">
+          <div class="admin-kart-baslik">🔀 Oyuncu Grup Değiştir</div>
+          <div class="admin-kart-ic">
+            <div class="admin-form-satir" style="flex-direction:column; gap:12px;">
+              <select class="form-input" id="transferOyuncu">
+                <option value="">-- Oyuncu Seç --</option>
+              </select>
+              <select class="form-input" id="transferGrup">
+                <option value="">-- Hedef Grup --</option>
+              </select>
+              <button class="btn-admin-ekle" style="width:100%" onclick="oyuncuTransfer()">Grubu Değiştir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAÇLAR -->
+    <div class="admin-panel" id="admin-maclar">
+      <div class="admin-grid2">
+        <div class="admin-kart">
+          <div class="admin-kart-baslik">📋 Tüm Maçlar</div>
+          <div id="adminMacListe"></div>
+        </div>
+        <div class="admin-kart">
+          <div class="admin-kart-baslik">📊 Puan Tablosu (Tüm)</div>
+          <div id="adminPuanTablo"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+
+<!-- İsim Modal -->
+<div class="modal-arkaplan" id="modalIsim">
+  <div class="modal-kutu">
+    <div class="modal-ikon">👤</div>
+    <h3>Adınızı Girin</h3>
+    <p>Rezervasyonu tamamlamak için adınızı ve soyadınızı girin.</p>
+    <div class="form-grup" style="text-align:left;">
+      <label>Ad Soyad</label>
+      <input type="text" class="form-input" id="misafirAdSoyad" placeholder="Ad Soyad">
+    </div>
+    <div id="misafirAdHata" style="color:#cc0000; font-size:13px; margin-bottom:12px; display:none;">Lütfen adınızı girin.</div>
+    <button class="btn-modal" onclick="misafirAdOnayla()">Rezervasyonu Tamamla →</button>
+    <button onclick="document.getElementById('modalIsim').classList.remove('acik')" style="display:block; margin-top:10px; background:none; border:none; color:var(--yazi2); font-size:13px; cursor:pointer; font-family:var(--font-govde);">İptal</button>
+  </div>
+</div>
+
+<!-- Sonuç Modal -->
+<div class="modal-arkaplan" id="modal">
+  <div class="modal-kutu">
+    <div class="modal-ikon" id="modalIkon">✅</div>
+    <h3 id="modalBaslik">Başarılı!</h3>
+    <p id="modalIcerik">İşleminiz tamamlandı.</p>
+    <button class="btn-modal" onclick="modalKapat()">Tamam</button>
+  </div>
+</div>
+
+<script>
+// ===== VERİ =====
+const OYUNCULAR = [
+  { id: 'ersin',  ad: 'Ersin',          sifre: 'ersin123'  },
+  { id: 'deniz',  ad: 'Deniz',          sifre: 'deniz123'  },
+  { id: 'yasin',  ad: 'F. Yasin Halil', sifre: 'yasin123'  },
+  { id: 'davut',  ad: 'Davut Kamış',    sifre: 'davut123'  },
+  { id: 'baris',  ad: 'Barış',          sifre: 'baris123'  },
+  { id: 'aytac',  ad: 'Aytaç Şen',      sifre: 'aytac123'  },
+];
+
+let maclar = [
+  { tarih: '2025-05-10', kazanan: 'ersin', kaybeden: 'deniz',  skor: '6-4, 6-3' },
+  { tarih: '2025-05-12', kazanan: 'yasin', kaybeden: 'baris',  skor: '7-5, 6-4' },
+  { tarih: '2025-05-14', kazanan: 'deniz', kaybeden: 'davut',  skor: '6-2, 6-1' },
+  { tarih: '2025-05-15', kazanan: 'ersin', kaybeden: 'aytac',  skor: '6-3, 7-6' },
+];
+
+let aktifOyuncu = null; // Global oturum
+
+// ===== SAYFA GEÇİŞ =====
+function sayfaGit(sayfa) {
+  // Defi ligine gidiliyorsa oturum kontrolü
+  if (sayfa === 'lig') {
+    if (!aktifOyuncu) {
+      // Giriş yapılmamış → kilit ekranını göster
+      document.querySelectorAll('.sayfa').forEach(s => s.classList.remove('aktif'));
+      document.getElementById('sayfa-lig').classList.add('aktif');
+      document.getElementById('ligGirisPanel').style.display = 'block';
+      document.getElementById('ligOyuncuPanel').style.display = 'none';
+      window.scrollTo(0, 0);
+      return;
+    }
+    // Giriş yapılmış → paneli aç
+    document.querySelectorAll('.sayfa').forEach(s => s.classList.remove('aktif'));
+    document.getElementById('sayfa-lig').classList.add('aktif');
+    document.getElementById('ligGirisPanel').style.display = 'none';
+    document.getElementById('ligOyuncuPanel').style.display = 'block';
+    document.getElementById('aktifOyuncuAd').textContent = aktifOyuncu.ad;
+    document.getElementById('kazananAd').value = aktifOyuncu.ad;
+    rakipleriDoldur();
+    puanTablosunuGuncelle();
+    gecmisMaclariGoster();
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  // Rezervasyon sayfasına gidiliyorsa
+  if (sayfa === 'rezervasyon') {
+    document.querySelectorAll('.sayfa').forEach(s => s.classList.remove('aktif'));
+    document.getElementById('sayfa-rezervasyon').classList.add('aktif');
+    rezSayfasiAc();
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  document.querySelectorAll('.sayfa').forEach(s => s.classList.remove('aktif'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('aktif'));
+  document.getElementById('sayfa-' + sayfa).classList.add('aktif');
+  const navEl = document.getElementById('nav-' + sayfa);
+  if (navEl) navEl.classList.add('aktif');
+  navDurumKontrol();
+  window.scrollTo(0, 0);
+}
+
+function rezSayfasiAc() {
+  // Üye oturumu varsa adım 2'ye (kiralama türü), yoksa direkt adım 3'e (misafir)
+  document.getElementById('rezAdim1').style.display = 'none';
+  document.getElementById('rezAdim2').style.display = 'none';
+  document.getElementById('rezAdim3').style.display = 'none';
+
+  if (aktifOyuncu) {
+    // Üye: adını ayarla, kiralama türü seçimi göster
+    rezKisi = { ad: aktifOyuncu.ad, uyeMi: true, oyuncuId: aktifOyuncu.id };
+    document.getElementById('ozetKisi').textContent = aktifOyuncu.ad;
+    rezTur = null;
+    // Defi rakip dropdown doldur
+    const sel = document.getElementById('defiRakip');
+    sel.innerHTML = '<option value="">-- Rakip Seç --</option>';
+    const grupFiltre = aktifOyuncu.grup
+      ? OYUNCULAR.filter(o => o.id !== aktifOyuncu.id && o.grup === aktifOyuncu.grup)
+      : OYUNCULAR.filter(o => o.id !== aktifOyuncu.id);
+    grupFiltre.forEach(o => sel.innerHTML += `<option value="${o.id}">${o.ad}</option>`);
+    document.getElementById('rezAdim2').style.display = 'block';
+  } else {
+    // Misafir: direkt adım 3 (kiralama)
+    rezKisi = { ad: 'Misafir', uyeMi: false, oyuncuId: null };
+    rezTur = 'kiralama';
+    document.getElementById('ozetKisi').textContent = 'Misafir';
+    document.getElementById('ozetTur').textContent = 'Saatlik Kiralama';
+    document.getElementById('ozetRakipSatir').style.display = 'none';
+    rezAdim3Goster();
+  }
+}
+
+// ===== LİG GİRİŞ =====
+// ===== GLOBAL GİRİŞ SİSTEMİ =====
+function globalGiris() {
+  const kullanici = document.getElementById('globalKullanici').value.trim().toLowerCase();
+  const sifre = document.getElementById('globalSifre').value;
+
+  // Admin kontrolü
+  if (adminGirisKontrol(kullanici, sifre)) {
+    document.getElementById('globalHata').style.display = 'none';
+    document.getElementById('nav-admin').style.display = 'flex';
+    navOturumGuncelle(null, true);
+    adminGuncelle();
+    sayfaGit('admin');
+    return;
+  }
+
+  const oyuncu = OYUNCULAR.find(o => o.id === kullanici && o.sifre === sifre);
+  if (!oyuncu) {
+    document.getElementById('globalHata').style.display = 'block';
+    return;
+  }
+
+  aktifOyuncu = oyuncu;
+  document.getElementById('globalHata').style.display = 'none';
+  navOturumGuncelle(oyuncu, false);
+  sayfaGit('lig');
+}
+
+function globalCikis() {
+  aktifOyuncu = null;
+  document.getElementById('nav-admin').style.display = 'none';
+  navOturumGuncelle(null, false);
+  document.getElementById('globalKullanici').value = '';
+  document.getElementById('globalSifre').value = '';
+  sayfaGit('ana');
+}
+
+function navOturumGuncelle(oyuncu, adminMi) {
+  const girisli = !!(oyuncu || adminMi);
+  const ids = {
+    girisBtn: document.getElementById('nav-giris-btn'),
+    kullanici: document.getElementById('nav-kullanici'),
+    cikis: document.getElementById('nav-cikis'),
+    mobilBtn: document.getElementById('navMobilGiris'),
+    heroBtn: document.getElementById('heroGirisBtn'),
+  };
+  if (ids.girisBtn) ids.girisBtn.style.cssText += girisli ? ';display:none!important' : ';display:flex!important';
+  if (ids.kullanici) ids.kullanici.style.cssText += girisli ? ';display:flex!important' : ';display:none!important';
+  if (ids.cikis) ids.cikis.style.cssText += girisli ? ';display:flex!important' : ';display:none!important';
+  if (ids.mobilBtn) ids.mobilBtn.style.cssText += girisli ? ';display:none!important' : ';display:flex!important';
+  if (ids.heroBtn) ids.heroBtn.style.cssText += girisli ? ';display:none!important' : ';display:flex!important';
+  if (girisli && ids.kullanici) {
+    document.getElementById('nav-kullanici-ad').textContent = adminMi ? 'Admin' : oyuncu.ad;
+  }
+}
+
+function navDurumKontrol() {
+  if (aktifOyuncu) navOturumGuncelle(aktifOyuncu, false);
+  else navOturumGuncelle(null, false);
+}
+
+// Eski ligGiris artık kullanılmıyor ama bozulmasın diye bırak
+function ligGiris() { globalGiris(); }
+function ligCikis() { globalCikis(); }
+
+// ===== RAKİP DOLDUR (sadece aynı grup) =====
+function rakipleriDoldur() {
+  const sel = document.getElementById('rakipSec');
+  sel.innerHTML = '<option value="">-- Rakip Seç --</option>';
+  // Aynı gruptaki oyuncuları göster; grubu yoksa herkesi göster
+  const grupFiltre = aktifOyuncu.grup
+    ? OYUNCULAR.filter(o => o.id !== aktifOyuncu.id && o.grup === aktifOyuncu.grup)
+    : OYUNCULAR.filter(o => o.id !== aktifOyuncu.id);
+  grupFiltre.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.id;
+    opt.textContent = o.ad;
+    sel.appendChild(opt);
+  });
+}
+
+// ===== PUAN HESAPLA =====
+function setSkoru(skorStr) {
+  // Her kazanılan set +1, kaybedilen set -1 olarak sayar
+  // [kazananınKazandığıSet, kazananınKaybettiğiSet] döner
+  let kSet = 0, mSet = 0;
+  if (!skorStr) return [0, 0];
+  skorStr.split(',').forEach(s => {
+    const parts = s.trim().split('-');
+    if (parts.length === 2) {
+      const a = parseInt(parts[0]), b = parseInt(parts[1]);
+      if (!isNaN(a) && !isNaN(b)) {
+        if (a > b) { kSet++; } else { mSet++; }
+      }
+    }
+  });
+  return [kSet, mSet];
+}
+
+function puanHesapla(grupId) {
+  // grupId verilirse sadece o gruptaki oyuncuları hesapla
+  const hedefOyuncular = grupId
+    ? OYUNCULAR.filter(o => o.grup === grupId)
+    : OYUNCULAR;
+  const stats = {};
+  hedefOyuncular.forEach(o => { stats[o.id] = { g: 0, m: 0, kSet: 0, mSet: 0 }; });
+  maclar.forEach(mac => {
+    if (!stats[mac.kazanan] && !stats[mac.kaybeden]) return;
+    if (stats[mac.kazanan]) stats[mac.kazanan].g++;
+    if (stats[mac.kaybeden]) stats[mac.kaybeden].m++;
+    // Averaj: maçtaki setleri parse et
+    const [kSet, mSet] = setSkoru(mac.skor);
+    if (stats[mac.kazanan]) { stats[mac.kazanan].kSet += kSet; stats[mac.kazanan].mSet += mSet; }
+    if (stats[mac.kaybeden]) { stats[mac.kaybeden].kSet += mSet; stats[mac.kaybeden].mSet += kSet; }
+  });
+  return hedefOyuncular.map(o => {
+    const av = stats[o.id].kSet - stats[o.id].mSet;
+    return {
+      ...o,
+      g: stats[o.id].g,
+      m: stats[o.id].m,
+      o: stats[o.id].g + stats[o.id].m,
+      p: stats[o.id].g * 3,
+      kSet: stats[o.id].kSet,
+      mSet: stats[o.id].mSet,
+      av
+    };
+  }).sort((a, b) => b.p - a.p || b.av - a.av || b.g - a.g);
+}
+
+function puanTablosunuGuncelle() {
+  // Oyuncunun grubuna göre sadece o grubu göster
+  const grupId = aktifOyuncu?.grup || null;
+  const sirali = puanHesapla(grupId);
+  const tbody = document.getElementById('puanTablosu');
+  // Grup adını başlığa yaz
+  const grup = gruplar.find(g => g.id === grupId);
+  const baslikEl = document.querySelector('.tablo-baslik');
+  if (baslikEl) baslikEl.textContent = grup ? '🏆 ' + grup.ad + ' — PUAN TABLOSU' : '🏆 PUAN TABLOSU';
+  tbody.innerHTML = '';
+  sirali.forEach((oyuncu, i) => {
+    const siraClass = i === 0 ? 'sira-1' : i === 1 ? 'sira-2' : i === 2 ? 'sira-3' : '';
+    const vurgu = oyuncu.id === aktifOyuncu?.id ? 'background:#f0faf4;' : '';
+    const avRenk = oyuncu.av > 0 ? 'color:var(--yesil);' : oyuncu.av < 0 ? 'color:#e53935;' : 'color:var(--yazi2);';
+    const avYazi = oyuncu.av > 0 ? '+' + oyuncu.av : oyuncu.av;
+    tbody.innerHTML += `
+      <tr style="${vurgu}">
+        <td><span class="sira ${siraClass}">${i + 1}</span></td>
+        <td><span class="oyuncu-ad">${oyuncu.ad}${oyuncu.id === aktifOyuncu?.id ? ' 👤' : ''}</span></td>
+        <td>${oyuncu.o > 0 ? oyuncu.o : '<span class="oynanmamis">0</span>'}</td>
+        <td class="galibiyet">${oyuncu.g}</td>
+        <td class="maglubiyet">${oyuncu.m}</td>
+        <td style="font-family:var(--font-mono); font-size:13px; ${avRenk}">${oyuncu.o > 0 ? avYazi : '-'}</td>
+        <td><span class="puan-deger">${oyuncu.p}</span></td>
+      </tr>`;
+  });
+}
+
+// ===== MAÇ EKLE =====
+function macEkle() {
+  const rakipId = document.getElementById('rakipSec').value;
+  if (!rakipId) { alert('Lütfen rakip seçin.'); return; }
+  const s1k = document.getElementById('s1k').value;
+  const s1r = document.getElementById('s1r').value;
+  const s2k = document.getElementById('s2k').value;
+  const s2r = document.getElementById('s2r').value;
+  const s3k = document.getElementById('s3k').value;
+  const s3r = document.getElementById('s3r').value;
+  if (!s1k || !s1r || !s2k || !s2r) { alert('1. ve 2. set skorlarını girin.'); return; }
+
+  let skor = `${s1k}-${s1r}, ${s2k}-${s2r}`;
+  if (s3k && s3r) skor += `, ${s3k}-${s3r}`;
+
+  // Gerçek kazananı hesapla: set sayısına göre
+  let benimSetim = 0, rakipSetim = 0;
+  [[s1k,s1r],[s2k,s2r]].forEach(([a,b]) => {
+    if (a && b) { parseInt(a) > parseInt(b) ? benimSetim++ : rakipSetim++; }
+  });
+  if (s3k && s3r) { parseInt(s3k) > parseInt(s3r) ? benimSetim++ : rakipSetim++; }
+  const gercekKazanan = benimSetim > rakipSetim ? aktifOyuncu.id : rakipId;
+  const gercekKaybeden = gercekKazanan === aktifOyuncu.id ? rakipId : aktifOyuncu.id;
+  const bugun = new Date().toISOString().split('T')[0];
+  maclar.unshift({
+    tarih: bugun,
+    kazanan: gercekKazanan,
+    kaybeden: gercekKaybeden,
+    skor
+  });
+
+  document.getElementById('rakipSec').value = '';
+  ['s1k','s1r','s2k','s2r','s3k','s3r'].forEach(id => document.getElementById(id).value = '');
+
+  const mesaj = document.getElementById('basariMesaj');
+  mesaj.style.display = 'block';
+  setTimeout(() => mesaj.style.display = 'none', 3000);
+
+  puanTablosunuGuncelle();
+  gecmisMaclariGoster();
+}
+
+// ===== GRUP MAÇLARI =====
+function gecmisMaclariGoster() {
+  const konteyner = document.getElementById('gecmisMaclar');
+  // Gruptaki tüm oyuncuların ID'leri
+  const grupOyuncuIdler = aktifOyuncu.grup
+    ? OYUNCULAR.filter(o => o.grup === aktifOyuncu.grup).map(o => o.id)
+    : [aktifOyuncu.id];
+
+  // Grup içi maçları filtrele (her iki oyuncu da aynı gruptaysa)
+  const grupMaclari = maclar.filter(m =>
+    grupOyuncuIdler.includes(m.kazanan) && grupOyuncuIdler.includes(m.kaybeden)
+  );
+
+  if (!grupMaclari.length) {
+    konteyner.innerHTML = '<p style="color:var(--yazi2); font-size:14px; text-align:center; padding:20px;">Henüz grup maçı oynanmadı.</p>';
+    return;
+  }
+
+  konteyner.innerHTML = grupMaclari.map(m => {
+    const kazanan = OYUNCULAR.find(o => o.id === m.kazanan);
+    const kaybeden = OYUNCULAR.find(o => o.id === m.kaybeden);
+    const benimMacim = m.kazanan === aktifOyuncu.id || m.kaybeden === aktifOyuncu.id;
+    const kazandim = m.kazanan === aktifOyuncu.id;
+    // Kendinle ilgili maçları vurgula
+    const vurgu = benimMacim ? (kazandim ? 'border-left-color:#40916c;' : 'border-left-color:#e53935;') : 'border-left-color:var(--gri2);';
+    return `
+      <div class="gecmis-mac mac-basarili" style="${vurgu}">
+        <div>
+          <div class="mac-oyuncular">
+            <span style="font-weight:700; color:var(--yesil);">${kazanan?.ad || m.kazanan}</span>
+            <span style="color:var(--yazi2); font-size:13px; margin:0 6px;">def.</span>
+            <span style="color:var(--yazi2);">${kaybeden?.ad || m.kaybeden}</span>
+          </div>
+          <div class="mac-tarih">${m.tarih}${benimMacim ? (kazandim ? ' · <span style="color:var(--yesil);font-weight:600;">Senin maçın ✓</span>' : ' · <span style="color:#e53935;font-weight:600;">Senin maçın ✗</span>') : ''}</div>
+        </div>
+        <div class="mac-skor">${m.skor}</div>
+      </div>`;
+  }).join('');
+}
+
+// ===== REZ STATE =====
+const AYLAR = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+const GUNLER = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+const TUM_SAATLER = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'];
+
+// Her kort için ayrı rezervasyon listesi: { 'Açık Kort 1': { '2026-05-23': [{saat:'10:00', sure:60, kisi:'Ersin', tur:'kiralama', rakip:null}] } }
+let kortRezervasyonlar = {
+  'Açık Kort 1': {},
+  'Açık Kort 2': {},
+  'Kapalı Kort': {}
+};
+
+// Durum
+let rezKisi = null;         // { ad, uyeMi, oyuncuId }
+let rezTur = null;          // 'kiralama' | 'defi'
+let rezRakip = null;        // oyuncu id
+let secilenAy = new Date();
+let secilenGun = null;
+let secilenSaat = null;
+let secilenKortAd = 'Açık Kort 1';
+
+// ── ADIM 1: üye / misafir ──
+function rezUyeSecim(tip) {
+  document.querySelectorAll('#rezAdim1 .kort-sec-kart').forEach(k => k.classList.remove('secili'));
+  event.currentTarget.classList.add('secili');
+  document.getElementById('misafirIsimPanel').style.display = 'none';
+  document.getElementById('uyeGirisPanel').style.display = 'none';
+  if (tip === 'misafir') document.getElementById('misafirIsimPanel').style.display = 'block';
+  else document.getElementById('uyeGirisPanel').style.display = 'block';
+}
+
+function misafirDevam() {
+  const ad = document.getElementById('misafirAd').value.trim();
+  if (!ad) { alert('Lütfen adınızı girin.'); return; }
+  rezKisi = { ad, uyeMi: false, oyuncuId: null };
+  rezTur = 'kiralama';
+  document.getElementById('ozetKisi').textContent = ad;
+  document.getElementById('ozetTur').textContent = 'Saatlik Kiralama';
+  document.getElementById('ozetRakipSatir').style.display = 'none';
+  rezAdim3Goster();
+}
+
+function rezUyeGiris() {
+  const k = document.getElementById('rezKullanici').value.trim().toLowerCase();
+  const s = document.getElementById('rezSifre').value;
+  const oyuncu = OYUNCULAR.find(o => o.id === k && o.sifre === s);
+  if (!oyuncu) { document.getElementById('rezHata').style.display = 'block'; return; }
+  document.getElementById('rezHata').style.display = 'none';
+  rezKisi = { ad: oyuncu.ad, uyeMi: true, oyuncuId: oyuncu.id };
+  document.getElementById('ozetKisi').textContent = oyuncu.ad;
+  // Üye → adım 2
+  document.getElementById('rezAdim1').style.display = 'none';
+  document.getElementById('rezAdim2').style.display = 'block';
+  // Defi rakip dropdown doldur
+  const sel = document.getElementById('defiRakip');
+  sel.innerHTML = '<option value="">-- Rakip Seç --</option>';
+  const grupFiltre = oyuncu.grup
+    ? OYUNCULAR.filter(o => o.id !== oyuncu.id && o.grup === oyuncu.grup)
+    : OYUNCULAR.filter(o => o.id !== oyuncu.id);
+  grupFiltre.forEach(o => sel.innerHTML += `<option value="${o.id}">${o.ad}</option>`);
+}
+
+// ── ADIM 2: kiralama türü ──
+function rezTurSec(tur, el) {
+  document.querySelectorAll('#rezAdim2 .kort-sec-kart').forEach(k => k.classList.remove('secili'));
+  el.classList.add('secili');
+  rezTur = tur;
+  document.getElementById('defiRakipPanel').style.display = tur === 'defi' ? 'block' : 'none';
+  document.getElementById('ozetTur').textContent = tur === 'defi' ? 'Defi Maçı (1.5 saat)' : 'Saatlik Kiralama';
+}
+
+function rezAdim3Gec() {
+  if (!rezTur) { alert('Lütfen kiralama türü seçin.'); return; }
+  if (rezTur === 'defi') {
+    const rakipId = document.getElementById('defiRakip').value;
+    if (!rakipId) { alert('Lütfen rakibinizi seçin.'); return; }
+    rezRakip = rakipId;
+    const rakipOyuncu = OYUNCULAR.find(o => o.id === rakipId);
+    document.getElementById('ozetRakip').textContent = rakipOyuncu?.ad || rakipId;
+    document.getElementById('ozetRakipSatir').style.display = 'flex';
+  } else {
+    rezRakip = null;
+    document.getElementById('ozetRakipSatir').style.display = 'none';
+  }
+  rezAdim3Goster();
+}
+
+function rezAdim3Goster() {
+  document.getElementById('rezAdim1').style.display = 'none';
+  document.getElementById('rezAdim2').style.display = 'none';
+  document.getElementById('rezAdim3').style.display = 'block';
+  // Süre ve fiyat
+  const sure = rezTur === 'defi' ? 90 : 60;
+  document.getElementById('ozetSure').textContent = rezTur === 'defi' ? '1.5 saat' : '1 saat';
+  document.getElementById('ozetFiyat').textContent = rezTur === 'defi' ? 'Ücretsiz 🎾' : '₺900';
+  // Kort listesini oluştur
+  const kortListesi = document.getElementById('rezKortListesi');
+  const kortlar = rezTur === 'defi'
+    ? [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️']]
+    : [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️'], ['Kapalı Kort','🏟️']];
+  kortListesi.innerHTML = kortlar.map(([ad, ikon], i) => `
+    <div class="kort-sec-kart ${i===0?'secili':''}" onclick="rezKortSec(this,'${ad}')">
+      <div class="kort-sec-ikon">${ikon}</div>
+      <div><div class="kort-sec-ad">${ad}</div><div class="kort-sec-fiyat">₺900 / saat</div></div>
+      <div class="secim-gostergesi"></div>
+    </div>`).join('');
+  secilenKortAd = kortlar[0][0];
+  document.getElementById('ozetKort').textContent = secilenKortAd;
+  secilenGun = null; secilenSaat = null;
+  document.getElementById('ozetTarih').textContent = 'Seçilmedi';
+  document.getElementById('ozetSaat').textContent = 'Seçilmedi';
+  takvimCiz();
+navDurumKontrol();
+}
+
+function rezKortSec(el, ad) {
+  document.querySelectorAll('#rezKortListesi .kort-sec-kart').forEach(k => k.classList.remove('secili'));
+  el.classList.add('secili');
+  secilenKortAd = ad;
+  secilenSaat = null;
+  document.getElementById('ozetKort').textContent = ad;
+  document.getElementById('ozetSaat').textContent = 'Seçilmedi';
+  saatleriCiz();
+  gunlukRezGoster();
+}
+
+function rezBasa() {
+  rezKisi = null; rezTur = null; rezRakip = null;
+  secilenGun = null; secilenSaat = null;
+  rezSayfasiAc();
+}
+
+// ── TAKVİM ──
+function takvimCiz() {
+  const ay = secilenAy.getMonth();
+  const yil = secilenAy.getFullYear();
+  document.getElementById('takvimAyYazi').textContent = AYLAR[ay] + ' ' + yil;
+  const ilkGun = new Date(yil, ay, 1).getDay();
+  const baslangic = ilkGun === 0 ? 6 : ilkGun - 1;
+  const toplamGun = new Date(yil, ay + 1, 0).getDate();
+  const bugun = new Date();
+  let h = GUNLER.map(g => `<div class="takvim-gun-ad">${g}</div>`).join('');
+  for (let i = 0; i < baslangic; i++) h += '<div class="takvim-gun bos">0</div>';
+  for (let g = 1; g <= toplamGun; g++) {
+    const tarih = new Date(yil, ay, g);
+    const tarihStr = tarih.toISOString().split('T')[0];
+    const gecmis = tarih < new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate());
+    const bugunMu = tarihStr === bugun.toISOString().split('T')[0];
+    const seciliMi = secilenGun === tarihStr;
+    let cls = 'takvim-gun';
+    if (gecmis) cls += ' gecmis';
+    else if (seciliMi) cls += ' secili';
+    else if (bugunMu) cls += ' bugun';
+    const tikla = gecmis ? '' : `onclick="gunSec('${tarihStr}')"`;
+    h += `<div class="${cls}" ${tikla}>${g}</div>`;
+  }
+  document.getElementById('takvimGunler').innerHTML = h;
+  saatleriCiz();
+}
+
+function takvimIleri() {
+  secilenAy = new Date(secilenAy.getFullYear(), secilenAy.getMonth() + 1, 1);
+  takvimCiz();
+}
+function takvimGeri() {
+  const yeni = new Date(secilenAy.getFullYear(), secilenAy.getMonth() - 1, 1);
+  const bugun = new Date();
+  if (yeni < new Date(bugun.getFullYear(), bugun.getMonth(), 1)) return;
+  secilenAy = yeni; takvimCiz();
+}
+
+function gunSec(tarih) {
+  secilenGun = tarih; secilenSaat = null;
+  document.getElementById('ozetTarih').textContent = tarih;
+  document.getElementById('ozetSaat').textContent = 'Seçilmedi';
+  takvimCiz();
+  gunlukRezGoster();
+}
+
+// Saat dizisini dakika cinsine çevir
+function saatDakika(s) {
+  const [h, m] = s.split(':').map(Number); return h * 60 + m;
+}
+function dakikaSaat(d) {
+  return String(Math.floor(d/60)).padStart(2,'0') + ':' + String(d%60).padStart(2,'0');
+}
+
+// Seçili kortun seçili günündeki dolu dakika aralıklarını hesapla
+function doluAraliklarHesapla(kortAd, tarih) {
+  const liste = (kortRezervasyonlar[kortAd] || {})[tarih] || [];
+  const doluDakikalar = new Set();
+  liste.forEach(r => {
+    const bas = saatDakika(r.saat);
+    for (let d = bas; d < bas + r.sure; d++) doluDakikalar.add(d);
+  });
+  return doluDakikalar;
+}
+
+function musaitSlotlariHesapla(kortAd, tarih) {
+  // Tüm rezervasyonları sırala
+  const rezler = [...((kortRezervasyonlar[kortAd] || {})[tarih] || [])]
+    .sort((a, b) => saatDakika(a.saat) - saatDakika(b.saat));
+
+  // Slot zincirini oluştur: 09:00'dan başla, rezervasyonlar arasındaki boşlukları ve sonrasını hesapla
+  const slots = []; // { dakika, dolu, kiminle }
+  const ACILIS = 9 * 60;   // 09:00
+  const KAPANIS = 23 * 60; // 23:00
+
+  // Rezervasyonlardan dolu aralıkları çıkar
+  const doluAralilar = rezler.map(r => ({
+    bas: saatDakika(r.saat),
+    son: saatDakika(r.saat) + r.sure,
+    kisi: r.kisi,
+    tur: r.tur
+  }));
+
+  // Zincir mantığı: bir sonraki müsait başlangıç noktasını bul
+  // Önce hangi dakikaların dolu olduğunu hesapla
+  const doluSet = new Set();
+  doluAralilar.forEach(d => {
+    for (let i = d.bas; i < d.son; i++) doluSet.add(i);
+  });
+
+  // Zincir: 09:00'dan başla, her adımda bir sonraki geçerli slotu bul
+  let siradakiMüsait = ACILIS; // dakika cinsinden bir sonraki müsait başlangıç
+
+  // Önce 09:00-kapanış arasında tüm olası slotları oluştur
+  // Ama dinamik zincir: bir rezervasyon bitince onun bitiş saatinden devam et
+  // Algoritma:
+  // 1. 09:00'dan başla, her saat başını kontrol et
+  // 2. Eğer o saat dolu değilse → müsait slot
+  // 3. Eğer doluysa → o rezervasyonun bitiş saatine atla, oradan devam et
+
+  const gosterilecekSlotlar = []; // { dakika, doluMu }
+  let ptr = ACILIS;
+
+  while (ptr < KAPANIS) {
+    // Bu noktada dolu mu?
+    if (doluSet.has(ptr)) {
+      // Bu saat dolu → dolu olarak göster, sonra bu rezervasyonun bitişine atla
+      gosterilecekSlotlar.push({ dakika: ptr, doluMu: true });
+      // Bu dakikayı kapsayan rezervasyonu bul
+      const rezervasyon = doluAralilar.find(d => d.bas <= ptr && ptr < d.son);
+      if (rezervasyon) {
+        ptr = rezervasyon.son; // Rezervasyonun bitişine atla
+        // Bitiş tam saat mi? Değilse en yakın tam saate yuvarla (yukarı)
+        // 16:30 → 16:30 (yarım saat de göster), 17:00, 18:00...
+        // Bitiş zaten tam saat veya yarım saatte olabilir (60 veya 90 dk)
+        // ptr zaten doğru → devam et
+      } else {
+        ptr += 60; // Güvenlik: dolu ama rezervasyon bulunamadıysa 1 saat atla
+      }
+    } else {
+      // Müsait slot
+      gosterilecekSlotlar.push({ dakika: ptr, doluMu: false });
+      ptr += 60; // Bir sonraki tam saate geç
+    }
+  }
+
+  return gosterilecekSlotlar;
+}
+
+function saatleriCiz() {
+  const el = document.getElementById('saatGrid');
+  const baslik = document.getElementById('saatBaslik');
+  if (!secilenGun) {
+    el.innerHTML = '<p style="color:var(--yazi2); font-size:13px; grid-column:1/-1;">Önce bir gün seçin.</p>';
+    return;
+  }
+  const sure = rezTur === 'defi' ? 90 : 60;
+  baslik.textContent = `Saat Seç (${rezTur === 'defi' ? '1.5 saat' : '1 saat'} blok)`;
+
+  const slots = musaitSlotlariHesapla(secilenKortAd, secilenGun);
+
+  // Seçilecek slotun sığıp sığmadığını kontrol et (bitiş saati kapanışı geçmesin)
+  el.innerHTML = slots.map(slot => {
+    const saatYazi = dakikaSaat(slot.dakika);
+    if (slot.doluMu) {
+      return `<div class="saat-btn dolu">${saatYazi}</div>`;
+    }
+    // Müsait: seçilen süre kapanışa sığıyor mu?
+    if (slot.dakika + sure > 23 * 60) {
+      return `<div class="saat-btn dolu" title="Kapanış saatine kadar yetmez">${saatYazi}</div>`;
+    }
+    const secili = secilenSaat === saatYazi ? ' secili' : '';
+    return `<div class="saat-btn${secili}" onclick="saatSec('${saatYazi}')">${saatYazi}</div>`;
+  }).join('');
+}
+
+function saatSec(saat) {
+  secilenSaat = saat;
+  document.getElementById('ozetSaat').textContent = saat;
+  saatleriCiz();
+}
+
+// Günlük rezervasyon listesi
+function gunlukRezGoster() {
+  const panel = document.getElementById('gunlukRezPanel');
+  const liste = document.getElementById('gunlukRezListe');
+  if (!secilenGun || !secilenKortAd) { panel.style.display = 'none'; return; }
+  const rezler = (kortRezervasyonlar[secilenKortAd] || {})[secilenGun] || [];
+  panel.style.display = 'block';
+  if (!rezler.length) {
+    liste.innerHTML = '<p style="color:var(--yazi2); font-size:14px; padding:12px 0;">Bu gün için rezervasyon yok.</p>';
+    return;
+  }
+  const sirali = [...rezler].sort((a,b) => saatDakika(a.saat) - saatDakika(b.saat));
+  liste.innerHTML = sirali.map(r => {
+    const bitis = dakikaSaat(saatDakika(r.saat) + r.sure);
+    const turRenk = r.tur === 'defi' ? 'var(--turuncu)' : 'var(--yesil)';
+    const rakipYazi = r.rakip ? ` <span style="color:var(--yazi2);">vs ${r.rakip}</span>` : '';
+    return `
+      <div class="gecmis-mac" style="border-left:4px solid ${turRenk};">
+        <div>
+          <div style="font-weight:700; font-size:15px;">${r.kisi}${rakipYazi}</div>
+          <div class="mac-tarih">${r.saat} – ${bitis} · <span style="color:${turRenk}; font-weight:600;">${r.tur === 'defi' ? '🏆 Defi' : '⏱ Kiralama'}</span></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// Web3Forms ayarı
+const W3F_KEY = 'c7eebd43-b6ea-4f52-830e-dc883173c1cd';
+
+function rezervasyonYap() {
+  if (!secilenGun) { modalGoster('⚠️', 'Tarih Seçin', 'Lütfen bir tarih seçin.'); return; }
+  if (!secilenSaat) { modalGoster('⚠️', 'Saat Seçin', 'Lütfen bir saat seçin.'); return; }
+  if (!rezKisi || !rezKisi.uyeMi) {
+    document.getElementById('misafirAdSoyad').value = '';
+    document.getElementById('misafirAdHata').style.display = 'none';
+    document.getElementById('modalIsim').classList.add('acik');
+    return;
+  }
+  rezervasyonuKaydet();
+}
+
+function misafirAdOnayla() {
+  const ad = document.getElementById('misafirAdSoyad').value.trim();
+  if (!ad) { document.getElementById('misafirAdHata').style.display = 'block'; return; }
+  document.getElementById('misafirAdHata').style.display = 'none';
+  document.getElementById('modalIsim').classList.remove('acik');
+  rezKisi = { ad, uyeMi: false, oyuncuId: null };
+  document.getElementById('ozetKisi').textContent = ad;
+  rezervasyonuKaydet();
+}
+
+function rezervasyonuKaydet() {
+  const sure = rezTur === 'defi' ? 90 : 60;
+  const rakipAd = rezRakip ? OYUNCULAR.find(o => o.id === rezRakip)?.ad : null;
+  if (!kortRezervasyonlar[secilenKortAd]) kortRezervasyonlar[secilenKortAd] = {};
+  if (!kortRezervasyonlar[secilenKortAd][secilenGun]) kortRezervasyonlar[secilenKortAd][secilenGun] = [];
+  kortRezervasyonlar[secilenKortAd][secilenGun].push({
+    saat: secilenSaat, sure,
+    kisi: rezKisi.ad,
+    tur: rezTur || 'kiralama',
+    rakip: rakipAd
+  });
+  const bitis = dakikaSaat(saatDakika(secilenSaat) + sure);
+  const turYazi = rezTur === 'defi' ? 'Defi Maçı' : 'Saatlik Kiralama';
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      access_key: W3F_KEY,
+      subject: '🎾 Yeni Rezervasyon — ' + secilenKortAd,
+      from_name: 'Mar-Ten Tenis',
+      kisi:  rezKisi.ad,
+      tur:   turYazi,
+      kort:  secilenKortAd,
+      tarih: secilenGun,
+      saat:  secilenSaat + ' - ' + bitis,
+      rakip: rakipAd || '-'
+    })
+  }).then(r => r.json())
+    .then(d => console.log('Mail gönderildi:', d))
+    .catch(err => console.warn('Mail gönderilemedi:', err));
+
+  modalGoster('✅', 'Rezervasyon Alındı!',
+    secilenKortAd + ' · ' + secilenGun + ' · ' + secilenSaat + '–' + bitis);
+
+  secilenSaat = null;
+  document.getElementById('ozetSaat').textContent = 'Seçilmedi';
+  saatleriCiz();
+  gunlukRezGoster();
+}
+
+// ===== MODAL =====
+function modalGoster(ikon, baslik, icerik) {
+  document.getElementById('modalIkon').textContent = ikon;
+  document.getElementById('modalBaslik').textContent = baslik;
+  document.getElementById('modalIcerik').textContent = icerik;
+  document.getElementById('modal').classList.add('acik');
+}
+function modalKapat() {
+  document.getElementById('modal').classList.remove('acik');
+}
+
+// ===== ADMİN =====
+const ADMIN = { id: 'admin', ad: 'Admin', sifre: 'admin2025', rol: 'admin' };
+let gruplar = [
+  { id: 'grupA', ad: 'A Grubu', renk: 'yesil' },
+  { id: 'grupB', ad: 'B Grubu', renk: 'turuncu' },
+];
+
+// Oyunculara grup ata (demo)
+OYUNCULAR[0].grup = 'grupA'; // Ersin
+OYUNCULAR[1].grup = 'grupA'; // Deniz
+OYUNCULAR[2].grup = 'grupA'; // Yasin
+OYUNCULAR[3].grup = 'grupB'; // Davut
+OYUNCULAR[4].grup = 'grupB'; // Barış
+OYUNCULAR[5].grup = 'grupB'; // Aytaç
+
+function adminGirisKontrol(kullanici, sifre) {
+  return kullanici === ADMIN.id && sifre === ADMIN.sifre;
+}
+
+function adminCikis() {
+  globalCikis();
+}
+
+function adminSekme(sekme) {
+  document.querySelectorAll('.admin-sekme').forEach(s => s.classList.remove('aktif'));
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('aktif'));
+  event.target.classList.add('aktif');
+  document.getElementById('admin-' + sekme).classList.add('aktif');
+  adminGuncelle();
+}
+
+function adminGuncelle() {
+  adminIstatlar();
+  adminOyuncuListesi();
+  adminGrupListesi();
+  adminMacListesi();
+  adminPuanTablosu();
+  transferDropdownlari();
+  grupDropdownDoldur();
+}
+
+function adminIstatlar() {
+  const el = document.getElementById('adminIstatlar');
+  el.innerHTML = `
+    <div class="istat-admin-kart"><div class="istat-admin-sayi">${OYUNCULAR.length}</div><div class="istat-admin-etiket">Oyuncu</div></div>
+    <div class="istat-admin-kart"><div class="istat-admin-sayi">${gruplar.length}</div><div class="istat-admin-etiket">Grup</div></div>
+    <div class="istat-admin-kart"><div class="istat-admin-sayi">${maclar.length}</div><div class="istat-admin-etiket">Maç</div></div>
+    <div class="istat-admin-kart"><div class="istat-admin-sayi">${OYUNCULAR.filter(o=>!o.grup).length}</div><div class="istat-admin-etiket">Grupsuz</div></div>
+  `;
+}
+
+function adminOyuncuListesi() {
+  const el = document.getElementById('adminOyuncuListe');
+  if (!OYUNCULAR.length) { el.innerHTML = '<div class="bos-mesaj">Henüz oyuncu yok.</div>'; return; }
+  el.innerHTML = OYUNCULAR.map(o => {
+    const grup = gruplar.find(g => g.id === o.grup);
+    return `
+      <div class="liste-item">
+        <div class="liste-item-sol">
+          <div class="liste-avatar">${o.ad[0]}</div>
+          <div>
+            <div class="liste-ad">${o.ad}</div>
+            <div class="liste-kullanici">@${o.id} ${grup ? `<span class="grup-badge">${grup.ad}</span>` : '<span style="color:#bbb;font-size:11px;">Grupsuz</span>'}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn-sil" onclick="oyuncuSil('${o.id}')">Sil</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function adminGrupListesi() {
+  const el = document.getElementById('adminGrupListe');
+  if (!gruplar.length) { el.innerHTML = '<div class="bos-mesaj">Henüz grup oluşturulmadı.</div>'; return; }
+  el.innerHTML = gruplar.map(g => {
+    const uyeler = OYUNCULAR.filter(o => o.grup === g.id);
+    return `
+      <div class="grup-kart">
+        <div class="grup-kart-baslik">
+          <div class="grup-ad">
+            🏆 ${g.ad}
+            <span class="grup-uye-sayi">${uyeler.length} üye</span>
+          </div>
+          <button class="btn-sil" onclick="grupSil('${g.id}')">Grubu Sil</button>
+        </div>
+        <div class="grup-uyeler">
+          ${uyeler.length ? uyeler.map(o => `
+            <div class="liste-item">
+              <div class="liste-item-sol">
+                <div class="liste-avatar" style="background:#fff3e0;color:var(--turuncu);">${o.ad[0]}</div>
+                <div class="liste-ad">${o.ad}</div>
+              </div>
+              <button class="btn-sil" onclick="gruptenCikar('${o.id}')">Gruptan Çıkar</button>
+            </div>`).join('') : '<div class="bos-mesaj" style="padding:16px;">Bu grupta henüz oyuncu yok.</div>'}
+        </div>
+        <div class="oyuncu-ata-satir">
+          <select id="ataSelect_${g.id}">
+            <option value="">Oyuncu ekle...</option>
+            ${OYUNCULAR.filter(o => o.grup !== g.id).map(o => `<option value="${o.id}">${o.ad}${o.grup ? ' (başka grupta)' : ''}</option>`).join('')}
+          </select>
+          <button class="btn-admin-ekle" onclick="grubaEkle('${g.id}')">Ekle</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function adminMacListesi() {
+  const el = document.getElementById('adminMacListe');
+  if (!maclar.length) { el.innerHTML = '<div class="bos-mesaj">Henüz maç yok.</div>'; return; }
+  el.innerHTML = maclar.slice(0, 20).map((m, i) => {
+    const kazanan = OYUNCULAR.find(o => o.id === m.kazanan);
+    const kaybeden = OYUNCULAR.find(o => o.id === m.kaybeden);
+    return `
+      <div class="liste-item">
+        <div>
+          <div style="font-weight:600; font-size:14px;">${kazanan?.ad || m.kazanan} <span style="color:var(--yesil);">def.</span> ${kaybeden?.ad || m.kaybeden}</div>
+          <div style="font-size:12px; color:var(--yazi2); font-family:var(--font-mono);">${m.skor} · ${m.tarih}</div>
+        </div>
+        <button class="btn-sil" onclick="macSil(${i})">Sil</button>
+      </div>`;
+  }).join('');
+}
+
+function adminPuanTablosu() {
+  const el = document.getElementById('adminPuanTablo');
+  const sirali = puanHesapla();
+  el.innerHTML = `
+    <table>
+      <thead><tr><th>#</th><th style="text-align:left;">Oyuncu</th><th>G</th><th>M</th><th>P</th></tr></thead>
+      <tbody>${sirali.map((o, i) => `
+        <tr>
+          <td style="font-family:var(--font-mono); color:var(--yazi2);">${i+1}</td>
+          <td style="font-weight:600;">${o.ad}</td>
+          <td style="color:var(--yesil); font-weight:600;">${o.g}</td>
+          <td style="color:#e53935; font-weight:600;">${o.m}</td>
+          <td style="font-family:var(--font-mono); font-weight:700; color:var(--yesil);">${o.p}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function grupDropdownDoldur() {
+  const sel = document.getElementById('yeniOyuncuGrup');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">-- Grup Seç (opsiyonel) --</option>';
+  gruplar.forEach(g => { sel.innerHTML += `<option value="${g.id}">${g.ad}</option>`; });
+}
+
+function transferDropdownlari() {
+  const selO = document.getElementById('transferOyuncu');
+  const selG = document.getElementById('transferGrup');
+  if (!selO || !selG) return;
+  selO.innerHTML = '<option value="">-- Oyuncu Seç --</option>' + OYUNCULAR.map(o => `<option value="${o.id}">${o.ad}</option>`).join('');
+  selG.innerHTML = '<option value="">-- Hedef Grup --</option><option value="">Grupsuz</option>' + gruplar.map(g => `<option value="${g.id}">${g.ad}</option>`).join('');
+}
+
+// CRUD işlemleri
+function oyuncuEkle() {
+  const ad = document.getElementById('yeniOyuncuAd').value.trim();
+  const kullanici = document.getElementById('yeniOyuncuKullanici').value.trim().toLowerCase();
+  const sifre = document.getElementById('yeniOyuncuSifre').value;
+  const grup = document.getElementById('yeniOyuncuGrup').value;
+  const hata = document.getElementById('oyuncuEkleHata');
+
+  if (!ad || !kullanici || !sifre) { hata.textContent = 'Ad, kullanıcı adı ve şifre zorunlu.'; hata.style.display = 'block'; return; }
+  if (OYUNCULAR.find(o => o.id === kullanici)) { hata.textContent = 'Bu kullanıcı adı zaten kullanılıyor.'; hata.style.display = 'block'; return; }
+
+  hata.style.display = 'none';
+  OYUNCULAR.push({ id: kullanici, ad, sifre, grup: grup || null });
+  document.getElementById('yeniOyuncuAd').value = '';
+  document.getElementById('yeniOyuncuKullanici').value = '';
+  document.getElementById('yeniOyuncuSifre').value = '';
+  document.getElementById('yeniOyuncuGrup').value = '';
+  adminGuncelle();
+  modalGoster('✅', 'Oyuncu Eklendi!', `${ad} (@${kullanici}) sisteme başarıyla eklendi.`);
+}
+
+function oyuncuSil(id) {
+  if (!confirm('Bu oyuncuyu silmek istediğine emin misin?')) return;
+  const i = OYUNCULAR.findIndex(o => o.id === id);
+  if (i > -1) OYUNCULAR.splice(i, 1);
+  adminGuncelle();
+}
+
+function grupEkle() {
+  const ad = document.getElementById('yeniGrupAd').value.trim();
+  if (!ad) return;
+  const id = 'grup_' + Date.now();
+  gruplar.push({ id, ad });
+  document.getElementById('yeniGrupAd').value = '';
+  adminGuncelle();
+}
+
+function grupSil(id) {
+  if (!confirm('Bu grubu silmek istediğine emin misin? Üyeler grupsuz kalacak.')) return;
+  OYUNCULAR.forEach(o => { if (o.grup === id) o.grup = null; });
+  gruplar = gruplar.filter(g => g.id !== id);
+  adminGuncelle();
+}
+
+function grubaEkle(grupId) {
+  const sel = document.getElementById('ataSelect_' + grupId);
+  const oyuncuId = sel.value;
+  if (!oyuncuId) return;
+  const oyuncu = OYUNCULAR.find(o => o.id === oyuncuId);
+  if (oyuncu) oyuncu.grup = grupId;
+  adminGuncelle();
+}
+
+function gruptenCikar(oyuncuId) {
+  const oyuncu = OYUNCULAR.find(o => o.id === oyuncuId);
+  if (oyuncu) oyuncu.grup = null;
+  adminGuncelle();
+}
+
+function oyuncuTransfer() {
+  const oyuncuId = document.getElementById('transferOyuncu').value;
+  const grupId = document.getElementById('transferGrup').value;
+  const oyuncu = OYUNCULAR.find(o => o.id === oyuncuId);
+  if (!oyuncu) return;
+  oyuncu.grup = grupId || null;
+  adminGuncelle();
+  modalGoster('✅', 'Grup Değiştirildi', `${oyuncu.ad} ${grupId ? gruplar.find(g=>g.id===grupId)?.ad : 'grupsuz'} olarak güncellendi.`);
+}
+
+function macSil(index) {
+  if (!confirm('Bu maçı silmek istediğine emin misin?')) return;
+  maclar.splice(index, 1);
+  adminGuncelle();
+  puanTablosunuGuncelle();
+}
+
+
+takvimCiz();
+</script>
+</body>
+</html>
