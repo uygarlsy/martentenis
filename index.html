@@ -1795,29 +1795,46 @@
       <button class="btn-admin-ekle turuncu" style="margin-top:20px;" onclick="rezAdim3Gec()">Kort & Tarih Seç →</button>
     </div>
 
-    <!-- ADIM 3: Kort + Takvim + Saat -->
+    <!-- ADIM 3: Tarih → Saat → Kort -->
     <div id="rezAdim3" style="display:none;">
       <div class="rez-grid">
         <div>
-          <!-- Kort seçimi -->
-          <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">Kort Seç</div>
+          <!-- Takvim: açılır kapanır -->
+          <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">1. Tarih Seç</div>
           <div class="bolum-cizgi"></div>
-          <div class="kort-secim" id="rezKortListesi"></div>
 
-          <!-- Takvim -->
-          <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px; margin-top:32px;">Tarih & Saat Seç</div>
-          <div class="bolum-cizgi"></div>
-          <div class="takvim-wrap">
-            <div class="takvim-baslik">
-              <button class="takvim-nav" onclick="takvimGeri()">‹</button>
-              <div class="takvim-ay" id="takvimAyYazi"></div>
-              <button class="takvim-nav" onclick="takvimIleri()">›</button>
+          <!-- Seçili tarihi gösteren tıklanabilir alan -->
+          <div id="takvimToggle" onclick="takvimAc()" style="display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:#fff; border:1px solid var(--gri2); border-radius:10px; cursor:pointer; margin-bottom:12px; transition:border-color 0.2s;">
+            <span id="takvimToggleYazi" style="font-size:15px; color:var(--yazi2);">📅 Tarih seçin...</span>
+            <span id="takvimToggleOk" style="font-size:18px; color:var(--yazi2); transition:transform 0.2s;">▼</span>
+          </div>
+
+          <!-- Açılır takvim -->
+          <div id="takvimPanel" style="display:none; margin-bottom:24px;">
+            <div class="takvim-wrap">
+              <div class="takvim-baslik">
+                <button class="takvim-nav" onclick="takvimGeri()">‹</button>
+                <div class="takvim-ay" id="takvimAyYazi"></div>
+                <button class="takvim-nav" onclick="takvimIleri()">›</button>
+              </div>
+              <div class="takvim-gunler" id="takvimGunler"></div>
             </div>
-            <div class="takvim-gunler" id="takvimGunler"></div>
-            <div class="saat-secim">
-              <div class="saat-baslik" id="saatBaslik">Saat Seç</div>
-              <div class="saat-grid" id="saatGrid"></div>
-            </div>
+          </div>
+
+          <!-- Saat seçimi: tüm kortların o saatteki durumu -->
+          <div id="saatSecimPanel" style="display:none;">
+            <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">2. Saat Seç</div>
+            <div class="bolum-cizgi"></div>
+            <p style="font-size:13px; color:var(--yazi2); margin-bottom:16px;">Seçtiğiniz saatte müsait kortlar otomatik gösterilecek.</p>
+            <div class="saat-grid" id="saatGrid"></div>
+          </div>
+
+          <!-- Kort seçimi: sadece seçili saatte müsait kortlar -->
+          <div id="kortSecimPanel" style="display:none; margin-top:28px;">
+            <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">3. Kort Seç</div>
+            <div class="bolum-cizgi"></div>
+            <p style="font-size:13px; color:var(--yazi2); margin-bottom:16px;" id="kortSecimAciklama"></p>
+            <div class="kort-secim" id="rezKortListesi"></div>
           </div>
 
           <!-- Günlük rezervasyon listesi -->
@@ -1844,7 +1861,7 @@
               <span class="ozet-toplam-fiyat" id="ozetFiyat">₺—</span>
             </div>
             <button class="btn-rez" onclick="rezervasyonYap()">Rezervasyonu Onayla</button>
-            <p class="rez-not">Rezervasyon onaylandıktan sonra WhatsApp üzerinden bildirim alacaksınız.</p>
+            <p class="rez-not">Rezervasyon tamamlandığında bildirim mailinize gönderilecektir.</p>
           </div>
           <button onclick="rezBasa()" style="margin-top:12px; width:100%; background:none; border:1px solid var(--gri2); color:var(--yazi2); padding:10px; border-radius:8px; cursor:pointer; font-family:var(--font-govde); font-size:13px;">← Başa Dön</button>
         </div>
@@ -2025,13 +2042,17 @@
 <div class="modal-arkaplan" id="modalIsim">
   <div class="modal-kutu">
     <div class="modal-ikon">👤</div>
-    <h3>Adınızı Girin</h3>
-    <p>Rezervasyonu tamamlamak için adınızı ve soyadınızı girin.</p>
+    <h3>Bilgilerinizi Girin</h3>
+    <p>Rezervasyonu tamamlamak için bilgilerinizi girin.</p>
     <div class="form-grup" style="text-align:left;">
       <label>Ad Soyad</label>
       <input type="text" class="form-input" id="misafirAdSoyad" placeholder="Ad Soyad">
     </div>
-    <div id="misafirAdHata" style="color:#cc0000; font-size:13px; margin-bottom:12px; display:none;">Lütfen adınızı girin.</div>
+    <div class="form-grup" style="text-align:left;">
+      <label>Telefon Numarası</label>
+      <input type="tel" class="form-input" id="misafirTelefon" placeholder="05XX XXX XX XX" maxlength="14">
+    </div>
+    <div id="misafirAdHata" style="color:#cc0000; font-size:13px; margin-bottom:12px; display:none;"></div>
     <button class="btn-modal" onclick="misafirAdOnayla()">Rezervasyonu Tamamla →</button>
     <button onclick="document.getElementById('modalIsim').classList.remove('acik')" style="display:block; margin-top:10px; background:none; border:none; color:var(--yazi2); font-size:13px; cursor:pointer; font-family:var(--font-govde);">İptal</button>
   </div>
@@ -2477,23 +2498,19 @@ function rezAdim3Goster() {
   const sure = rezTur === 'defi' ? 90 : 60;
   document.getElementById('ozetSure').textContent = rezTur === 'defi' ? '1.5 saat' : '1 saat';
   document.getElementById('ozetFiyat').textContent = rezTur === 'defi' ? 'Ücretsiz 🎾' : '₺900';
-  // Kort listesini oluştur
-  const kortListesi = document.getElementById('rezKortListesi');
-  const kortlar = rezTur === 'defi'
-    ? [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️']]
-    : [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️'], ['Kapalı Kort','🏟️']];
-  kortListesi.innerHTML = kortlar.map(([ad, ikon], i) => `
-    <div class="kort-sec-kart ${i===0?'secili':''}" onclick="rezKortSec(this,'${ad}')">
-      <div class="kort-sec-ikon">${ikon}</div>
-      <div><div class="kort-sec-ad">${ad}</div><div class="kort-sec-fiyat">₺900 / saat</div></div>
-      <div class="secim-gostergesi"></div>
-    </div>`).join('');
-  secilenKortAd = kortlar[0][0];
-  document.getElementById('ozetKort').textContent = secilenKortAd;
+  // Kort seçimi artık saat seçiminden sonra dinamik yapılıyor
+  secilenKortAd = null;
   secilenGun = null; secilenSaat = null;
   document.getElementById('ozetTarih').textContent = 'Seçilmedi';
   document.getElementById('ozetSaat').textContent = 'Seçilmedi';
-  takvimCiz();
+  document.getElementById('ozetKort').textContent = 'Seçilmedi';
+  document.getElementById('takvimToggleYazi').textContent = '📅 Tarih seçin...';
+  document.getElementById('takvimToggleYazi').style.color = 'var(--yazi2)';
+  document.getElementById('takvimPanel').style.display = 'none';
+  document.getElementById('saatSecimPanel').style.display = 'none';
+  document.getElementById('kortSecimPanel').style.display = 'none';
+  document.getElementById('gunlukRezPanel').style.display = 'none';
+  secilenAy = new Date();
 navDurumKontrol();
 }
 
@@ -2501,10 +2518,7 @@ function rezKortSec(el, ad) {
   document.querySelectorAll('#rezKortListesi .kort-sec-kart').forEach(k => k.classList.remove('secili'));
   el.classList.add('secili');
   secilenKortAd = ad;
-  secilenSaat = null;
   document.getElementById('ozetKort').textContent = ad;
-  document.getElementById('ozetSaat').textContent = 'Seçilmedi';
-  saatleriCiz();
   gunlukRezGoster();
 }
 
@@ -2515,6 +2529,15 @@ function rezBasa() {
 }
 
 // ── TAKVİM ──
+function takvimAc() {
+  const panel = document.getElementById('takvimPanel');
+  const ok = document.getElementById('takvimToggleOk');
+  const acik = panel.style.display !== 'none';
+  panel.style.display = acik ? 'none' : 'block';
+  ok.style.transform = acik ? 'rotate(0deg)' : 'rotate(180deg)';
+  if (!acik) takvimCiz();
+}
+
 function takvimCiz() {
   const ay = secilenAy.getMonth();
   const yil = secilenAy.getFullYear();
@@ -2523,7 +2546,7 @@ function takvimCiz() {
   const baslangic = ilkGun === 0 ? 6 : ilkGun - 1;
   const toplamGun = new Date(yil, ay + 1, 0).getDate();
   const bugun = new Date();
-  let h = GUNLER.map(g => `<div class="takvim-gun-ad">${g}</div>`).join('');
+  let h = GUNLER.map(g => '<div class="takvim-gun-ad">' + g + '</div>').join('');
   for (let i = 0; i < baslangic; i++) h += '<div class="takvim-gun bos">0</div>';
   for (let g = 1; g <= toplamGun; g++) {
     const tarih = new Date(yil, ay, g);
@@ -2535,11 +2558,10 @@ function takvimCiz() {
     if (gecmis) cls += ' gecmis';
     else if (seciliMi) cls += ' secili';
     else if (bugunMu) cls += ' bugun';
-    const tikla = gecmis ? '' : `onclick="gunSec('${tarihStr}')"`;
-    h += `<div class="${cls}" ${tikla}>${g}</div>`;
+    const tikla = gecmis ? '' : 'onclick="gunSec('' + tarihStr + '')"';
+    h += '<div class="' + cls + '" ' + tikla + '>' + g + '</div>';
   }
   document.getElementById('takvimGunler').innerHTML = h;
-  saatleriCiz();
 }
 
 function takvimIleri() {
@@ -2554,10 +2576,26 @@ function takvimGeri() {
 }
 
 function gunSec(tarih) {
-  secilenGun = tarih; secilenSaat = null;
+  secilenGun = tarih;
+  secilenSaat = null;
+  secilenKortAd = null;
+  // Toggle yazısını güncelle
+  const d = new Date(tarih);
+  const gunAd = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'][d.getDay()];
+  document.getElementById('takvimToggleYazi').textContent = '📅 ' + tarih + ' — ' + gunAd;
+  document.getElementById('takvimToggleYazi').style.color = 'var(--yesil)';
+  // Takvimi kapat
+  document.getElementById('takvimPanel').style.display = 'none';
+  document.getElementById('takvimToggleOk').style.transform = 'rotate(0deg)';
+  // Özet güncelle
   document.getElementById('ozetTarih').textContent = tarih;
   document.getElementById('ozetSaat').textContent = 'Seçilmedi';
-  takvimCiz();
+  document.getElementById('ozetKort').textContent = 'Seçilmedi';
+  // Saat panelini göster, kort panelini gizle
+  document.getElementById('saatSecimPanel').style.display = 'block';
+  document.getElementById('kortSecimPanel').style.display = 'none';
+  document.getElementById('gunlukRezPanel').style.display = 'none';
+  saatleriCiz();
   gunlukRezGoster();
 }
 
@@ -2673,9 +2711,41 @@ function saatleriCiz() {
 
 function saatSec(saat) {
   secilenSaat = saat;
+  secilenKortAd = null;
   document.getElementById('ozetSaat').textContent = saat;
+  document.getElementById('ozetKort').textContent = 'Seçilmedi';
   saatleriCiz();
+  musaitKortlariGoster(saat);
 }
+
+function musaitKortlariGoster(saat) {
+  const sure = rezTur === 'defi' ? 90 : 60;
+  const mevcutKortlar = rezTur === 'defi'
+    ? [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️']]
+    : [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️'], ['Kapalı Kort','🏟️']];
+  const bas = saatDakika(saat);
+  const musaitKortlar = mevcutKortlar.filter(([ad]) => {
+    const slots = musaitSlotlariHesapla(ad, secilenGun);
+    return slots.some(s => s.dakika === bas && !s.doluMu && s.dakika + sure <= 23*60);
+  });
+  const panel = document.getElementById('kortSecimPanel');
+  const liste = document.getElementById('rezKortListesi');
+  const aciklama = document.getElementById('kortSecimAciklama');
+  panel.style.display = 'block';
+  aciklama.textContent = saat + ' saatinde ' + musaitKortlar.length + ' kort müsait:';
+  liste.innerHTML = musaitKortlar.map(([ad, ikon], i) =>
+    '<div class="kort-sec-kart' + (i===0?' secili':'') + '" onclick="rezKortSec(this,\'' + ad + '\')">' +
+    '<div class="kort-sec-ikon">' + ikon + '</div>' +
+    '<div><div class="kort-sec-ad">' + ad + '</div><div class="kort-sec-fiyat">₺900 / saat</div></div>' +
+    '<div class="secim-gostergesi"></div></div>'
+  ).join('');
+  if (musaitKortlar.length > 0) {
+    secilenKortAd = musaitKortlar[0][0];
+    document.getElementById('ozetKort').textContent = secilenKortAd;
+  }
+  gunlukRezGoster();
+}
+
 
 // Günlük rezervasyon listesi
 function gunlukRezGoster() {
@@ -2720,13 +2790,36 @@ function rezervasyonYap() {
 
 function misafirAdOnayla() {
   const ad = document.getElementById('misafirAdSoyad').value.trim();
-  if (!ad) { document.getElementById('misafirAdHata').style.display = 'block'; return; }
-  document.getElementById('misafirAdHata').style.display = 'none';
+  const tel = document.getElementById('misafirTelefon').value.trim();
+  const hataEl = document.getElementById('misafirAdHata');
+  // Validasyon
+  if (!ad) { hataEl.textContent = 'Lütfen adınızı girin.'; hataEl.style.display = 'block'; return; }
+  const telTemiz = tel.replace(/\s/g, '');
+  const telRegex = /^05[0-9]{9}$/;
+  if (!telRegex.test(telTemiz)) {
+    hataEl.textContent = 'Geçerli bir telefon numarası girin (05XX XXX XX XX).';
+    hataEl.style.display = 'block'; return;
+  }
+  hataEl.style.display = 'none';
   document.getElementById('modalIsim').classList.remove('acik');
-  rezKisi = { ad, uyeMi: false, oyuncuId: null };
+  rezKisi = { ad, tel: telTemiz, uyeMi: false, oyuncuId: null };
   document.getElementById('ozetKisi').textContent = ad;
   rezervasyonuKaydet();
 }
+
+// Telefon numarası otomatik formatlama
+document.addEventListener('DOMContentLoaded', () => {
+  const telInput = document.getElementById('misafirTelefon');
+  if (telInput) {
+    telInput.addEventListener('input', function() {
+      let val = this.value.replace(/\D/g, '');
+      if (val.length > 4 && val.length <= 7) val = val.slice(0,4) + ' ' + val.slice(4);
+      else if (val.length > 7 && val.length <= 9) val = val.slice(0,4) + ' ' + val.slice(4,7) + ' ' + val.slice(7);
+      else if (val.length > 9) val = val.slice(0,4) + ' ' + val.slice(4,7) + ' ' + val.slice(7,9) + ' ' + val.slice(9,11);
+      this.value = val;
+    });
+  }
+});
 
 function rezervasyonuKaydet() {
   const sure = rezTur === 'defi' ? 90 : 60;
@@ -2749,12 +2842,13 @@ function rezervasyonuKaydet() {
       access_key: W3F_KEY,
       subject: '🎾 Yeni Rezervasyon — ' + secilenKortAd,
       from_name: 'Mar-Ten Tenis',
-      kisi:  rezKisi.ad,
-      tur:   turYazi,
-      kort:  secilenKortAd,
-      tarih: secilenGun,
-      saat:  secilenSaat + ' - ' + bitis,
-      rakip: rakipAd || '-'
+      kisi:   rezKisi.ad,
+      telefon: rezKisi.tel || (rezKisi.uyeMi ? 'Üye' : '-'),
+      tur:    turYazi,
+      kort:   secilenKortAd,
+      tarih:  secilenGun,
+      saat:   secilenSaat + ' - ' + bitis,
+      rakip:  rakipAd || '-'
     })
   }).then(r => r.json())
     .then(d => console.log('Mail gönderildi:', d))
