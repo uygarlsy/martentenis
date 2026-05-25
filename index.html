@@ -1821,21 +1821,14 @@
             </div>
           </div>
 
-          <!-- Saat seçimi: tüm kortların o saatteki durumu -->
+          <!-- Kort + Saat: gün seçince her kort için saat grid'i -->
           <div id="saatSecimPanel" style="display:none;">
-            <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">2. Saat Seç</div>
+            <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">2. Kort & Saat Seç</div>
             <div class="bolum-cizgi"></div>
-            <p style="font-size:13px; color:var(--yazi2); margin-bottom:16px;">Seçtiğiniz saatte müsait kortlar otomatik gösterilecek.</p>
-            <div class="saat-grid" id="saatGrid"></div>
+            <p style="font-size:13px; color:var(--yazi2); margin-bottom:20px;">Uygun olduğun saatte istediğin kortu seç.</p>
+            <div id="kortSaatGrid"></div>
           </div>
-
-          <!-- Kort seçimi: sadece seçili saatte müsait kortlar -->
-          <div id="kortSecimPanel" style="display:none; margin-top:28px;">
-            <div class="bolum-baslik" style="font-size:22px; margin-bottom:8px;">3. Kort Seç</div>
-            <div class="bolum-cizgi"></div>
-            <p style="font-size:13px; color:var(--yazi2); margin-bottom:16px;" id="kortSecimAciklama"></p>
-            <div class="kort-secim" id="rezKortListesi"></div>
-          </div>
+          <div id="kortSecimPanel" style="display:none;"></div>
 
           <!-- Günlük rezervasyon listesi -->
           <div id="gunlukRezPanel" style="display:none; margin-top:32px;">
@@ -2521,6 +2514,9 @@ function rezKortSec(el, ad) {
   document.getElementById('ozetKort').textContent = ad;
   gunlukRezGoster();
 }
+function rezKortSecData(el) {
+  rezKortSec(el, el.dataset.kort);
+}
 
 function rezBasa() {
   rezKisi = null; rezTur = null; rezRakip = null;
@@ -2550,16 +2546,19 @@ function takvimCiz() {
   for (let i = 0; i < baslangic; i++) h += '<div class="takvim-gun bos">0</div>';
   for (let g = 1; g <= toplamGun; g++) {
     const tarih = new Date(yil, ay, g);
-    const tarihStr = tarih.toISOString().split('T')[0];
+    const tarihStr = tarih.getFullYear() + '-' + String(tarih.getMonth()+1).padStart(2,'0') + '-' + String(tarih.getDate()).padStart(2,'0');
     const gecmis = tarih < new Date(bugun.getFullYear(), bugun.getMonth(), bugun.getDate());
-    const bugunMu = tarihStr === bugun.toISOString().split('T')[0];
+    const bugunMu = tarihStr === (bugun.getFullYear() + '-' + String(bugun.getMonth()+1).padStart(2,'0') + '-' + String(bugun.getDate()).padStart(2,'0'));
     const seciliMi = secilenGun === tarihStr;
     let cls = 'takvim-gun';
     if (gecmis) cls += ' gecmis';
     else if (seciliMi) cls += ' secili';
     else if (bugunMu) cls += ' bugun';
-    const tikla = gecmis ? '' : 'onclick="gunSec('' + tarihStr + '')"';
-    h += '<div class="' + cls + '" ' + tikla + '>' + g + '</div>';
+    if (!gecmis) {
+      h += '<div class="' + cls + '" data-tarih="' + tarihStr + '" onclick="gunSecEl(this)">' + g + '</div>';
+    } else {
+      h += '<div class="' + cls + '">' + g + '</div>';
+    }
   }
   document.getElementById('takvimGunler').innerHTML = h;
 }
@@ -2575,14 +2574,16 @@ function takvimGeri() {
   secilenAy = yeni; takvimCiz();
 }
 
+function gunSecEl(el) { gunSec(el.dataset.tarih); }
 function gunSec(tarih) {
   secilenGun = tarih;
   secilenSaat = null;
   secilenKortAd = null;
-  // Toggle yazısını güncelle
-  const d = new Date(tarih);
+  // Toggle yazısını güncelle — local tarih parse et
+  const parca = tarih.split('-');
+  const d = new Date(parseInt(parca[0]), parseInt(parca[1])-1, parseInt(parca[2]));
   const gunAd = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'][d.getDay()];
-  document.getElementById('takvimToggleYazi').textContent = '📅 ' + tarih + ' — ' + gunAd;
+  document.getElementById('takvimToggleYazi').textContent = '📅 ' + parca[2] + ' ' + ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'][parseInt(parca[1])-1] + ' ' + parca[0] + ' — ' + gunAd;
   document.getElementById('takvimToggleYazi').style.color = 'var(--yesil)';
   // Takvimi kapat
   document.getElementById('takvimPanel').style.display = 'none';
@@ -2591,12 +2592,11 @@ function gunSec(tarih) {
   document.getElementById('ozetTarih').textContent = tarih;
   document.getElementById('ozetSaat').textContent = 'Seçilmedi';
   document.getElementById('ozetKort').textContent = 'Seçilmedi';
-  // Saat panelini göster, kort panelini gizle
+  // Her kortun saat grid'ini göster
   document.getElementById('saatSecimPanel').style.display = 'block';
   document.getElementById('kortSecimPanel').style.display = 'none';
   document.getElementById('gunlukRezPanel').style.display = 'none';
-  saatleriCiz();
-  gunlukRezGoster();
+  kortSaatGridCiz();
 }
 
 // Saat dizisini dakika cinsine çevir
@@ -2682,33 +2682,52 @@ function musaitSlotlariHesapla(kortAd, tarih) {
   return gosterilecekSlotlar;
 }
 
-function saatleriCiz() {
-  const el = document.getElementById('saatGrid');
-  const baslik = document.getElementById('saatBaslik');
-  if (!secilenGun) {
-    el.innerHTML = '<p style="color:var(--yazi2); font-size:13px; grid-column:1/-1;">Önce bir gün seçin.</p>';
-    return;
-  }
+function kortSaatGridCiz() {
+  const el = document.getElementById('kortSaatGrid');
+  if (!secilenGun) { el.innerHTML = ''; return; }
   const sure = rezTur === 'defi' ? 90 : 60;
-  baslik.textContent = `Saat Seç (${rezTur === 'defi' ? '1.5 saat' : '1 saat'} blok)`;
+  const mevcutKortlar = rezTur === 'defi'
+    ? [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️']]
+    : [['Açık Kort 1','🌤️'], ['Açık Kort 2','☀️'], ['Kapalı Kort','🏟️']];
 
-  const slots = musaitSlotlariHesapla(secilenKortAd, secilenGun);
+  el.innerHTML = mevcutKortlar.map(([kortAd, ikon]) => {
+    const slots = musaitSlotlariHesapla(kortAd, secilenGun);
+    const saatler = slots.map(slot => {
+      const saatYazi = dakikaSaat(slot.dakika);
+      if (slot.doluMu || slot.dakika + sure > 23*60) {
+        return '<div class="saat-btn dolu">' + saatYazi + '</div>';
+      }
+      const secili = (secilenSaat === saatYazi && secilenKortAd === kortAd) ? ' secili' : '';
+      return '<div class="saat-btn' + secili + '" data-saat="' + saatYazi + '" data-kort="' + kortAd + '" onclick="kortSaatSec(this)">' + saatYazi + '</div>';
+    }).join('');
 
-  // Seçilecek slotun sığıp sığmadığını kontrol et (bitiş saati kapanışı geçmesin)
-  el.innerHTML = slots.map(slot => {
-    const saatYazi = dakikaSaat(slot.dakika);
-    if (slot.doluMu) {
-      return `<div class="saat-btn dolu">${saatYazi}</div>`;
-    }
-    // Müsait: seçilen süre kapanışa sığıyor mu?
-    if (slot.dakika + sure > 23 * 60) {
-      return `<div class="saat-btn dolu" title="Kapanış saatine kadar yetmez">${saatYazi}</div>`;
-    }
-    const secili = secilenSaat === saatYazi ? ' secili' : '';
-    return `<div class="saat-btn${secili}" onclick="saatSec('${saatYazi}')">${saatYazi}</div>`;
+    return '<div style="margin-bottom:24px;">' +
+      '<div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">' +
+        '<span style="font-size:20px;">' + ikon + '</span>' +
+        '<span style="font-weight:700; font-size:15px; color:var(--koyu);">' + kortAd + '</span>' +
+      '</div>' +
+      '<div class="saat-grid">' + saatler + '</div>' +
+    '</div>';
   }).join('');
 }
 
+function kortSaatSec(el) {
+  const saat = el.dataset.saat;
+  const kort = el.dataset.kort;
+  secilenSaat = saat;
+  secilenKortAd = kort;
+  document.getElementById('ozetSaat').textContent = saat;
+  document.getElementById('ozetKort').textContent = kort;
+  // Tüm butonları sıfırla, seçiliyi vurgula
+  kortSaatGridCiz();
+  gunlukRezGoster();
+}
+
+function saatleriCiz() { kortSaatGridCiz(); }
+function saatSecEl(el) { }
+function saatSec(saat) { }
+
+function saatSecEl(el) { saatSec(el.dataset.saat); }
 function saatSec(saat) {
   secilenSaat = saat;
   secilenKortAd = null;
@@ -2781,6 +2800,7 @@ function rezervasyonYap() {
   if (!secilenSaat) { modalGoster('⚠️', 'Saat Seçin', 'Lütfen bir saat seçin.'); return; }
   if (!rezKisi || !rezKisi.uyeMi) {
     document.getElementById('misafirAdSoyad').value = '';
+    document.getElementById('misafirTelefon').value = '';
     document.getElementById('misafirAdHata').style.display = 'none';
     document.getElementById('modalIsim').classList.add('acik');
     return;
